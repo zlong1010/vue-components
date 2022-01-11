@@ -21,7 +21,6 @@
 </template>
 
 <script>
-import { Tool } from '@/util';
 
 const defaultAttr = {
   type: 'text',
@@ -136,7 +135,7 @@ export default {
       this.$emit('blur', e, val);
     },
     handleCopy() {
-      if (Tool.copyString(this.value || '')) {
+      if (copyString(this.value || '')) {
         this.$toast('复制成功');
       } else {
         this.$toast('复制失败');
@@ -161,4 +160,173 @@ export default {
     this.numWord = (this.value || '').length;
   },
 };
+
+function copyString(str) {
+  if (navigator.clipboard) {
+    return navigator.clipboard.writeText(str);
+  }
+  const input = document.createElement("textarea");
+  input.readOnly = "readonly";
+  input.style.position = 'fixed';
+  input.style.clip = 'rect(0 0 0 0)';
+  input.style.top = '10px';
+  input.value = str;
+  document.body.appendChild(input);
+  input.select();
+  const isSuccess = document.execCommand("copy");
+  document.body.removeChild(input);
+  return isSuccess;
+}
 </script>
+
+<style lang="less" scoped>
+.c-inputv2-wrap {
+  position: relative;
+  .c-inputv2-search {
+    position: relative;
+    .icon_search {
+      margin-left: 8px;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 1;
+    }
+    &.search {
+      input {
+        padding-left: 36px;
+        text-indent: 0;
+      }
+    }
+  }
+  .c-inputv2-desc-wrap {
+    position: relative;
+    .c-inputv2-desc {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      left: 440px;
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 2;
+      word-break: break-all;
+      font-size: 12px;
+      color: #7f8fa4;
+      line-height: 18px;
+      font-weight: 400;
+      &:empty {
+        display: none;
+      }
+    }
+  }
+  .c-inputv2-content {
+    // width: 360px;
+    min-height: 40px;
+    position: relative;
+    background: #ffffff;
+    font-size: 14px;
+    color: #06003b;
+    // overflow: hidden;
+    .faker-value {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      padding: 12px 8px 8px 12px;
+    }
+    input {
+      width: 100%;
+      border-radius: 4px;
+      vertical-align: middle;
+      transition: border 0.15s ease-out;
+    }
+    textarea {
+      width: 100%;
+      height: 100%;
+      min-height: 90px;
+      padding: 8px 8px 8px 12px;
+      position: relative;
+      border: 1px solid #dcdfe6;
+      border-radius: 4px;
+      vertical-align: middle;
+      overflow: auto; // 隐藏ie滚动条
+      transition: border 0.15s ease-out;
+      .min-placeholder {
+        font-size: 14px;
+        color: #c0c4cc;
+        line-height: 24px;
+        font-weight: 400;
+      }
+      &::placeholder {
+        .min-placeholder();
+      }
+      &::-webkit-input-placeholder,
+      &::-moz-placeholder,
+      &:-ms-input-placeholder {
+        .min-placeholder();
+      }
+      &:focus {
+        border-color: #3a51e0;
+      }
+    }
+    .copy_icon_black {
+      position: absolute;
+      top: 50%;
+      right: 12px;
+      transform: translateY(-50%);
+    }
+    .c-inputv2-count {
+      position: absolute;
+      bottom: 8px;
+      right: 8px;
+      font-size: 10px;
+      color: #bfc4cd;
+      text-align: right;
+      line-height: 14px;
+      font-weight: 400;
+    }
+    .more-btn {
+      line-height: 0;
+      position: absolute;
+      top: 50%;
+      right: 0px;
+      transform: translate(100%, -50%);
+    }
+    &.copy {
+      input,
+      textarea {
+        padding-right: 32px;
+      }
+    }
+  }
+  .c-inputv2-error {
+    max-width: 358px;
+    display: flex;
+    margin-top: 8px;
+    align-items: center;
+    font-size: 12px;
+    color: #f56c6c;
+    line-height: 18px;
+    font-weight: 400;
+    word-break: break-all;
+    &:empty {
+      display: none;
+    }
+    &::before {
+      width: 16px;
+      height: 16px;
+      min-width: 16px;
+      margin: 2px 8px 0 0;
+      align-self: flex-start;
+      content: '';
+      display: inline-block;
+      background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgBAMAAACBVGfHAAAAMFBMVEUAAAD2bGz2bGz2bGz2bGz2bW31bW32bGz2b2/3b2//gID2bW31bGz////++Pj6uLgOA9FkAAAADHRSTlMA5vPZv4yFdlM8CKjvXHhZAAAAq0lEQVQoz2OAgKnOSiaRDHDAVXgGBMQXwAQaz0CABJTPdgYGEiACe+ACp2EKUJX0IAmcAFkhA2Kdfw8WOAi0iB3MOncPoqSAgYERzDh7FyIgwMAwB0XgJANDDIrAUQYGHxSBIwwMNigChxkYdFAEDmEKYGrxQXHYEZC1EKfDrZ0D9RfcYYxQJtzp7ChaCkDehxgK9z5DD5KKExhBiBnImNGAGVGYUYmIbOIAALoXE/rM7duLAAAAAElFTkSuQmCC);
+      background-size: contain;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+  }
+}
+</style>
