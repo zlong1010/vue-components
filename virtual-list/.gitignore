@@ -1,9 +1,0 @@
-.idea
-.vscode
-.DS_Store
-dist/*.map
-docs/js/*.map
-dev
-issues
-node_modules
-coverage
