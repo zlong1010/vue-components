@@ -1,5 +1,5 @@
 <template>
-  <a class="c-ink-btn-wrap" :href="href" @click="handleClick" rel="noreferrer noopener">
+  <a class="c-ink-btn" :href="href" @click="handleClick" rel="noreferrer noopener">
     <slot></slot>
   </a>
 </template>
@@ -34,9 +34,43 @@ export default {
         return false;
       }
       const blank = this._blank || event.ctrlKey || event.metaKey;
-      this.$routerJump(this.to, { blank, replace: this.replace });
+      this.routerJump(this.to, { blank, replace: this.replace });
       return false;
+    },
+    routerJump(routeConfig, args) {
+      const defaultArgs = { blank: false, replace: false, event: {} };
+      // 点击事件
+      if (args instanceof Event) {
+        args = Object.assign(defaultArgs, { event: args });
+      } else {
+        args = Object.assign(defaultArgs, args);
+      }
+      // event: Boolean | MouseEvent
+      let isNewTab = false;
+      if (args.blank || args.event.ctrlKey || args.event.metaKey) {
+        isNewTab = true;
+      }
+      const newHref = this.$router.resolve(routeConfig).href;
+      if (isNewTab) {
+        window.open(newHref, '_blank');
+        return;
+      }
+      if (newHref === window.location.href) { return; }
+
+      if (args.replace) {
+        this.$router.replace(routeConfig).catch(() => {});
+      } else {
+        this.$router.push(routeConfig).catch(() => {});
+      }
     },
   },
 };
 </script>
+
+<style lang="less" scoped>
+.c-ink-btn {
+  display: inline-block;
+  vertical-align: middle;
+  cursor: pointer;
+}
+</style>
