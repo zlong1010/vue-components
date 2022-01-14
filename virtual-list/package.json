@@ -1,6 +1,6 @@
 {
-  "name": "vue-virtual-scroll-list",
-  "version": "2.3.3",
+  "name": "vue-virtual-list",
+  "version": "1.0.0",
   "description": "A vue component support big amount data list with high scroll performance.",
   "main": "dist/index.js",
   "files": [
@@ -17,7 +17,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/tangbc/vue-virtual-scroll-list.git"
+    "url": "https://github.com/zlong1010/vue-components/tree/master/virtual-list"
   },
   "keywords": [
     "vue",
@@ -26,12 +26,9 @@
     "scroll-list",
     "virtual-list"
   ],
-  "author": "tangbc",
+  "author": "zlong",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/tangbc/vue-virtual-scroll-list/issues"
-  },
-  "homepage": "https://github.com/tangbc/vue-virtual-scroll-list#readme",
+  "homepage": "https://github.com/zlong1010/vue-components/tree/master/virtual-list",
   "dependencies": {},
   "devDependencies": {
     "@babel/core": "^7.8.7",
