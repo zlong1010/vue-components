@@ -2,7 +2,7 @@
 
 # example
 ```vue
-<table v-loading={isLoading: true}></table>
+<table v-loading={show: true}></table>
 ```
 
 # 指令参数
@@ -11,8 +11,7 @@
 # 指令值
 | 指令值    | 类型    | 默认值    | 描述            |
 | --------- | ------- | --------- | --------------- |
-| isLoading | boolean | -         | 是否显示        |
+| show | boolean | -         | 是否显示，必填项        |
 | title     | string  | 加载中... |                 |
-| icon      | string  | -         |                 |
 | isBlur    | boolean | true      | 是否模糊        |
-| isModal   | boolean | false     | 是否是modal弹窗 |
+| page   | boolean | true     | 是否是页面loading, 为true 时dom被插入到body中, 否则插入父元素中 |
