@@ -3,7 +3,6 @@
 const child_process = require('child_process');
 const args = process.argv;
 const commitMsg = args[2];
-
 if (!commitMsg) {
   console.error('commit msg is null');
   return;

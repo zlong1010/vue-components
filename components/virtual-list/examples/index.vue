@@ -1,8 +1,7 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">home</router-link>
-      <span class="line">|</span>
+  <div class="p-virtual-list">
+    <div class="tab-list" @click="toggleAct">
+      <span data-k="Fixed">固定尺寸</span>
       <router-link to="/fixed-size">fixed size</router-link>
       <span class="line">|</span>
       <router-link to="/dynamic-size">dynamic size</router-link>
@@ -17,27 +16,38 @@
       <span class="line">|</span>
       <router-link to="/chat-room">chat room</router-link>
     </div>
-    <router-view/>
+    <component :is="who"/>
   </div>
 </template>
 
-<style lang="less">
-body {
-  font-size: 18px;
-}
+<script>
+import Fixed from './views/fixed-size';
 
-h1, h2, h3, h4, h5, h6 {
-  letter-spacing: 0px;
-}
+export default {
+  components: { Fixed },
+  data() {
+    return {
+      who: '',
+    };
+  },
+  methods: {
+    toggleAct(e) {
+      const cmp = e.target.getAttribute('data-k');
+      this.who = cmp;
+    },
+  },
+};
+</script>
 
-#app {
+<style lang="less" scoped>
+.p-virtual-list {
   @media (max-width: 640px) {
     padding: 3px;
     width: 100%;
   }
 }
 
-#nav {
+.tab-list {
   position: fixed;
   top: 0;
   left: 0;
@@ -51,6 +61,9 @@ h1, h2, h3, h4, h5, h6 {
   white-space: nowrap;
   overflow-x: auto;
   z-index: 2;
+  > * {
+    cursor: pointer;
+  }
   @media (max-width: 640px) {
     padding: 0;
     position: relative;
@@ -59,23 +72,6 @@ h1, h2, h3, h4, h5, h6 {
     height: unset;
     padding-left: unset;
     align-items: unset;
-  }
-  a {
-    display: inline-block;
-    color: #fff;
-    @media (max-width: 640px) {
-      margin-bottom: 0;
-      margin-right: 1em;
-      color: #9b4dca;
-    }
-  }
-  .line {
-    margin: 0 1em;
-    font-size: 14px;
-    color: pink;
-    @media (max-width: 640px) {
-      display: none;
-    }
   }
   .router-link-exact-active,
   .router-link-exact-active:hover {

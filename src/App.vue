@@ -3,7 +3,8 @@
     <Header />
     <div class="page-wrap">
       <div id="nav">
-        <router-link to="/input">input</router-link>
+        <router-link to="/input">输入框</router-link>
+        <router-link to="/virtual-list">虚拟列表</router-link>
       </div>
       <router-view class="page-content" />
     </div>
@@ -18,22 +19,23 @@ export default {
 };
 </script>
 
-<style>
+<style lang="less" scoped>
 #app {
-  width: 80%;
-  max-width: 1200px;
-  margin: 0 auto;
+  /* background-color: #f5f5d5; */
 }
 .page-wrap {
+  padding-top: 40px;
   display: flex;
-  outline: 1px solid red;
 }
 #nav {
   flex: 0 0 auto;
-  height: calc(100vh - 32px);
+  height: calc(100vh - 40px);
   min-width: 10rem;
   overflow: auto;
-  background-color: aqua;
+  border-right: 1px solid #d3d3d3;
+  > * {
+    display: block;
+  }
 }
 .page-content {
   margin-left: 24px;

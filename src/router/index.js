@@ -13,8 +13,12 @@ const config = [
   {
     path: '/input',
     name: 'input',
-    component: () => import('../../components/input/examples'),
-    // component: () => import(/* webpackChunkName: "fixed-size" */ "../views/fixed-size/Main.vue"),
+    component: () => import('@cmp/input/examples'),
+  },
+  {
+    path: '/virtual-list',
+    name: 'virtual-list',
+    component: () => import('@cmp/virtual-list/examples'),
   },
 ];
 
