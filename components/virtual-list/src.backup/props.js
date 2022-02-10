@@ -6,153 +6,153 @@
 export const VirtualProps = {
   dataKey: {
     type: [String, Function],
-    required: true
+    required: true,
   },
   dataSources: {
     type: Array,
-    required: true
+    required: true,
   },
   dataComponent: {
     type: [Object, Function],
-    required: true
+    required: true,
   },
 
   keeps: {
     type: Number,
-    default: 30
+    default: 30,
   },
   extraProps: {
-    type: Object
+    type: Object,
   },
   estimateSize: {
     type: Number,
-    default: 50
+    default: 50,
   },
 
   direction: {
     type: String,
-    default: 'vertical' // the other value is horizontal
+    default: 'vertical', // the other value is horizontal
   },
   start: {
     type: Number,
-    default: 0
+    default: 0,
   },
   offset: {
     type: Number,
-    default: 0
+    default: 0,
   },
   topThreshold: {
     type: Number,
-    default: 0
+    default: 0,
   },
   bottomThreshold: {
     type: Number,
-    default: 0
+    default: 0,
   },
   pageMode: {
     type: Boolean,
-    default: false
+    default: false,
   },
   rootTag: {
     type: String,
-    default: 'div'
+    default: 'div',
   },
   wrapTag: {
     type: String,
-    default: 'div'
+    default: 'div',
   },
   wrapClass: {
     type: String,
-    default: ''
+    default: '',
   },
   wrapStyle: {
-    type: Object
+    type: Object,
   },
   itemTag: {
     type: String,
-    default: 'div'
+    default: 'div',
   },
   itemClass: {
     type: String,
-    default: ''
+    default: '',
   },
   itemClassAdd: {
-    type: Function
+    type: Function,
   },
   itemStyle: {
-    type: Object
+    type: Object,
   },
   headerTag: {
     type: String,
-    default: 'div'
+    default: 'div',
   },
   headerClass: {
     type: String,
-    default: ''
+    default: '',
   },
   headerStyle: {
-    type: Object
+    type: Object,
   },
   footerTag: {
     type: String,
-    default: 'div'
+    default: 'div',
   },
   footerClass: {
     type: String,
-    default: ''
+    default: '',
   },
   footerStyle: {
-    type: Object
+    type: Object,
   },
   itemScopedSlots: {
-    type: Object
-  }
-}
+    type: Object,
+  },
+};
 
 export const ItemProps = {
   index: {
-    type: Number
+    type: Number,
   },
   event: {
-    type: String
+    type: String,
   },
   tag: {
-    type: String
+    type: String,
   },
   horizontal: {
-    type: Boolean
+    type: Boolean,
   },
   source: {
-    type: Object
+    type: Object,
   },
   component: {
-    type: [Object, Function]
+    type: [Object, Function],
   },
   slotComponent: {
-    type: Function
+    type: Function,
   },
   uniqueKey: {
-    type: [String, Number]
+    type: [String, Number],
   },
   extraProps: {
-    type: Object
+    type: Object,
   },
   scopedSlots: {
-    type: Object
-  }
-}
+    type: Object,
+  },
+};
 
 export const SlotProps = {
   event: {
-    type: String
+    type: String,
   },
   uniqueKey: {
-    type: String
+    type: String,
   },
   tag: {
-    type: String
+    type: String,
   },
   horizontal: {
-    type: Boolean
-  }
-}
+    type: Boolean,
+  },
+};

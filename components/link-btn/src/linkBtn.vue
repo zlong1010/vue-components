@@ -55,7 +55,9 @@ export default {
         window.open(newHref, '_blank');
         return;
       }
-      if (newHref === window.location.href) { return; }
+      if (newHref === window.location.href) {
+        return;
+      }
 
       if (args.replace) {
         this.$router.replace(routeConfig).catch(() => {});

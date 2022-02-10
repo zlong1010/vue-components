@@ -226,10 +226,10 @@ export default class Virtual {
     let middleOffset = 0;
     let high = this.param.uniqueIds.length;
     const _range = this.range;
-    if (offset > this.getIndexOffset((_range.start))) {
+    if (offset > this.getIndexOffset(_range.start)) {
       low = _range.start;
     }
-    if (offset < this.getIndexOffset((_range.end))) {
+    if (offset < this.getIndexOffset(_range.end)) {
       high = _range.end;
     }
     while (low <= high) {
@@ -238,7 +238,8 @@ export default class Virtual {
       if (middleOffset === offset) {
         this.rowOver = middle;
         return this.rowOver;
-      } if (middleOffset < offset) {
+      }
+      if (middleOffset < offset) {
         low = middle + 1;
       } else if (middleOffset > offset) {
         high = middle - 1;

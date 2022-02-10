@@ -1,11 +1,15 @@
 <template>
   <div class="example">
     <github-corner />
-    <introduction description="In <code>page-mode</code> virtual list using global document to scroll through the list." />
+    <introduction
+      description="In <code>page-mode</code> virtual list using global document to scroll through the list."
+    />
 
     <div class="example-content">
       <div>
-        <virtual-list class="list-page scroll-touch" ref="vsl"
+        <virtual-list
+          class="list-page scroll-touch"
+          ref="vsl"
           :data-key="'id'"
           :data-sources="items"
           :estimate-size="135"
@@ -14,7 +18,7 @@
           v-on:tobottom="tobottom"
         >
           <template v-slot:item="{ source }">
-            <Item :source="source" class="list-item-page"/>
+            <Item :source="source" class="list-item-page" />
           </template>
         </virtual-list>
         <div class="bottom">
@@ -26,24 +30,24 @@
 </template>
 
 <script>
-import Item from './Item'
+import Item from './Item';
 
-import { Random } from '../../common/mock'
-import getSentences from '../../common/sentences'
-import genUniqueId from '../../common/gen-unique-id'
+import { Random } from '../../common/mock';
+import getSentences from '../../common/sentences';
+import genUniqueId from '../../common/gen-unique-id';
 
-const TOTAL_COUNT = 1000
+const TOTAL_COUNT = 1000;
 
-const DataItems = []
-let count = TOTAL_COUNT
+const DataItems = [];
+let count = TOTAL_COUNT;
 while (count--) {
-  const index = TOTAL_COUNT - count
+  const index = TOTAL_COUNT - count;
   DataItems.push({
     index,
     name: Random.name(),
     id: genUniqueId(index),
-    desc: getSentences()
-  })
+    desc: getSentences(),
+  });
 }
 
 export default {
@@ -53,22 +57,22 @@ export default {
     Item,
   },
 
-  data () {
+  data() {
     return {
       items: DataItems,
       itemComponent: Item,
-    }
+    };
   },
 
   methods: {
-    totop () {
-      console.log('reach totop')
+    totop() {
+      console.log('reach totop');
     },
-    tobottom () {
-      console.log('reach tobottom')
-    }
-  }
-}
+    tobottom() {
+      console.log('reach tobottom');
+    },
+  },
+};
 </script>
 
 <style lang="less">

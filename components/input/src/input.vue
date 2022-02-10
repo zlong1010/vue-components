@@ -4,9 +4,25 @@
       <span v-if="search" class="icon_search"></span>
       <div class="c-input-desc-wrap">
         <div :class="[`${clsPrefix}-content`, { textarea, copy: hasCopy }]" :style="inputStyle">
-          <textarea v-if="textarea" v-bind="attrs" :value="value" v-on="listeners" class="input" :placeholder="visibleFakerVal ? '' : placeholder"></textarea>
-          <input v-else v-bind="attrs" :value="value" v-on="listeners" class="input" :placeholder="visibleFakerVal ? '' : placeholder"/>
-          <span v-if="textarea && attrs.maxlength" :class="`${clsPrefix}-count`">{{ `${numWord}/${attrs.maxlength}` }}</span>
+          <textarea
+            v-if="textarea"
+            v-bind="attrs"
+            :value="value"
+            v-on="listeners"
+            class="input"
+            :placeholder="visibleFakerVal ? '' : placeholder"
+          ></textarea>
+          <input
+            v-else
+            v-bind="attrs"
+            :value="value"
+            v-on="listeners"
+            class="input"
+            :placeholder="visibleFakerVal ? '' : placeholder"
+          />
+          <span v-if="textarea && attrs.maxlength" :class="`${clsPrefix}-count`">
+            {{ `${numWord}/${attrs.maxlength}` }}
+          </span>
           <span v-if="hasCopy" @click="handleCopy" class="copy_icon_black"></span>
           <div class="more-btn">
             <slot name="morebtn"></slot>
@@ -164,15 +180,15 @@ function copyString(str) {
   if (navigator.clipboard) {
     return navigator.clipboard.writeText(str);
   }
-  const input = document.createElement("textarea");
-  input.readOnly = "readonly";
+  const input = document.createElement('textarea');
+  input.readOnly = 'readonly';
   input.style.position = 'fixed';
   input.style.clip = 'rect(0 0 0 0)';
   input.style.top = '10px';
   input.value = str;
   document.body.appendChild(input);
   input.select();
-  const isSuccess = document.execCommand("copy");
+  const isSuccess = document.execCommand('copy');
   document.body.removeChild(input);
   return isSuccess;
 }

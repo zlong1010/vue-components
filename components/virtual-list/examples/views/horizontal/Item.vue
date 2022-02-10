@@ -1,24 +1,23 @@
 <template>
-  <div class="item-inner" v-bind:style="{width: source.size + 'px'}">
+  <div class="item-inner" v-bind:style="{ width: source.size + 'px' }">
     <div class="index"># {{ source.index }}</div>
     <div class="size">{{ source.size }}</div>
   </div>
 </template>
 
 <script>
-
 export default {
   name: 'horizontal-item',
 
   props: {
     source: {
       type: Object,
-      default () {
-        return {}
-      }
-    }
-  }
-}
+      default() {
+        return {};
+      },
+    },
+  },
+};
 </script>
 
 <style lang="less" scoped>

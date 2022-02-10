@@ -1,6 +1,6 @@
 import InputV2 from './src/input.vue';
 
-InputV2.install = function(Vue) {
+InputV2.install = function (Vue) {
   Vue.component(InputV2.name, InputV2);
 };
 

@@ -44,7 +44,7 @@ export default {};
     margin-right: 8px;
     cursor: pointer;
   }
-  >:last-child {
+  > :last-child {
     margin: 0 0 0 auto;
   }
 }

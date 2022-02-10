@@ -62,7 +62,7 @@ export default {
   border-radius: 20px;
   z-index: 100;
   &.success {
-    background: #67C23A;
+    background: #67c23a;
   }
   &.warning {
     background: #ffcd7b;
@@ -77,7 +77,7 @@ export default {
       margin-right: 8px;
     }
     &.toast-text {
-      color: #06003B;
+      color: #06003b;
       font-size: 14px;
       font-weight: normal;
       line-height: 22px;

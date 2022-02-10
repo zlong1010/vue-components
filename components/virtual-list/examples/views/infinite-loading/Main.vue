@@ -1,7 +1,9 @@
 <template>
   <div class="example">
     <github-corner />
-    <introduction description="Use <code>v-on:tobottom</code> to listen scroll reach bottom, add a footer slot as loading, then append next parts data into <code>data-sources</code> array." />
+    <introduction
+      description="Use <code>v-on:tobottom</code> to listen scroll reach bottom, add a footer slot as loading, then append next parts data into <code>data-sources</code> array."
+    />
 
     <div class="example-content">
       <tab v-on:tab-change="onTabChange" />
@@ -9,7 +11,8 @@
       <div class="result">Items count: {{ items.length }}.</div>
 
       <div v-show="isShowView">
-        <virtual-list class="list-infinite scroll-touch"
+        <virtual-list
+          class="list-infinite scroll-touch"
           :data-key="'id'"
           :data-sources="items"
           :estimate-size="70"
@@ -18,7 +21,7 @@
           v-on:tobottom="onScrollToBottom"
         >
           <template v-slot:item="{ source }">
-            <Item :source="source" class="list-item-infinite"/>
+            <Item :source="source" class="list-item-infinite" />
           </template>
           <div slot="footer" class="loader"></div>
         </virtual-list>
@@ -30,29 +33,29 @@
 </template>
 
 <script>
-import Item from './Item'
-import Code from './Code'
+import Item from './Item';
+import Code from './Code';
 
-import { Random } from '../../common/mock'
-import getSentences from '../../common/sentences'
-import genUniqueId from '../../common/gen-unique-id'
-import { TAB_TYPE, DEFAULT_TAB } from '../../common/const'
+import { Random } from '../../common/mock';
+import getSentences from '../../common/sentences';
+import genUniqueId from '../../common/gen-unique-id';
+import { TAB_TYPE, DEFAULT_TAB } from '../../common/const';
 
 const getPageData = (count, currentLength) => {
-  const DataItems = []
+  const DataItems = [];
   for (let i = 0; i < count; i++) {
-    const index = currentLength + i
+    const index = currentLength + i;
     DataItems.push({
       index,
       name: Random.name(),
       id: genUniqueId(index),
-      desc: getSentences()
-    })
+      desc: getSentences(),
+    });
   }
-  return DataItems
-}
+  return DataItems;
+};
 
-const pageSize = 20
+const pageSize = 20;
 
 export default {
   name: 'infinite-loading',
@@ -62,43 +65,43 @@ export default {
     Item,
   },
 
-  created () {
-    this.isLoading = false
+  created() {
+    this.isLoading = false;
   },
 
-  data () {
+  data() {
     return {
       items: getPageData(pageSize, 0),
       itemComponent: Item,
       isShowView: DEFAULT_TAB === TAB_TYPE.VIEW,
-    }
+    };
   },
 
   methods: {
-    onTabChange (type) {
-      this.isShowView = type === TAB_TYPE.VIEW
+    onTabChange(type) {
+      this.isShowView = type === TAB_TYPE.VIEW;
     },
 
-    onScrollToTop () {
-      console.log('at top')
+    onScrollToTop() {
+      console.log('at top');
     },
 
-    onScrollToBottom () {
-      console.log('at bottom')
+    onScrollToBottom() {
+      console.log('at bottom');
 
       if (this.isLoading) {
-        return
+        return;
       }
 
-      this.isLoading = true
+      this.isLoading = true;
 
       setTimeout(() => {
-        this.isLoading = false
-        this.items = this.items.concat(getPageData(pageSize, this.items.length))
+        this.isLoading = false;
+        this.items = this.items.concat(getPageData(pageSize, this.items.length));
       }, 500);
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
 <style lang="less">

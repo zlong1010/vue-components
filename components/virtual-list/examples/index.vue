@@ -14,7 +14,7 @@
       <span class="line">|</span>
       <router-link to="/chat-room">chat room</router-link>
     </div>
-    <component :is="who"/>
+    <component :is="who" />
   </div>
 </template>
 
@@ -76,7 +76,6 @@ export default {
       border-color: #606c76;
       text-decoration: none;
     }
-
   }
 }
 
@@ -101,7 +100,7 @@ export default {
 
 .scroll-touch {
   -webkit-overflow-scrolling: touch;
-   /* width */
+  /* width */
   &::-webkit-scrollbar {
     width: 10px;
   }

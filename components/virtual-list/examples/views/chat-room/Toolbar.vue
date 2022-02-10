@@ -9,32 +9,32 @@
 </template>
 
 <script>
-import { LOAD_TYPES, setLoadType } from './util'
+import { LOAD_TYPES, setLoadType } from './util';
 
 export default {
   name: 'tool-bar',
 
   methods: {
-    eventClickEmpty () {
-      setLoadType(LOAD_TYPES.EMPTY)
-      this.reload()
+    eventClickEmpty() {
+      setLoadType(LOAD_TYPES.EMPTY);
+      this.reload();
     },
 
-    eventClickPages () {
-      setLoadType(LOAD_TYPES.PAGES)
-      this.reload()
+    eventClickPages() {
+      setLoadType(LOAD_TYPES.PAGES);
+      this.reload();
     },
 
-    eventClickFew () {
-      setLoadType(LOAD_TYPES.FEW)
-      this.reload()
+    eventClickFew() {
+      setLoadType(LOAD_TYPES.FEW);
+      this.reload();
     },
 
-    reload () {
-      window.location.reload()
-    }
-  }
-}
+    reload() {
+      window.location.reload();
+    },
+  },
+};
 </script>
 
 <style lang="less" scoped>

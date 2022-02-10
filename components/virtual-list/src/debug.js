@@ -226,7 +226,7 @@ class Debug {
     let text = '';
     if (typeof data === 'string') {
       text = data;
-    } else if (Array.isArray((data))) {
+    } else if (Array.isArray(data)) {
       data.forEach((v, ind) => {
         text += `${ind}: ${v}\n`;
       });

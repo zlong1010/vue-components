@@ -7,7 +7,7 @@
         <div></div>
         <div></div>
       </div>
-      <p class="title">{{title}}</p>
+      <p class="title">{{ title }}</p>
     </div>
   </div>
 </template>
@@ -70,7 +70,7 @@ export default {
 .vd8dke-page-bgfilter {
   position: relative;
   &::before {
-    content: "";
+    content: '';
     position: absolute;
     width: 100%;
     height: 100%;

@@ -2,24 +2,54 @@
   <div class="example">
     <github-corner />
 
-    <h2 class="name">
-      vue-virtual-scroll-list
-    </h2>
+    <h2 class="name">vue-virtual-scroll-list</h2>
 
     <div class="desc">⚡️ A vue component support big amount data list with high scroll performance.</div>
 
     <div class="icons">
       <span class="btn">
-        <github-button href="https://github.com/tangbc/vue-virtual-scroll-list/issues" data-color-scheme="no-preference: dark; light: dark; dark: dark;" data-size="large" data-show-count="true" aria-label="Issue tangbc/vue-virtual-scroll-list on GitHub">Issue</github-button>
+        <github-button
+          href="https://github.com/tangbc/vue-virtual-scroll-list/issues"
+          data-color-scheme="no-preference: dark; light: dark; dark: dark;"
+          data-size="large"
+          data-show-count="true"
+          aria-label="Issue tangbc/vue-virtual-scroll-list on GitHub"
+        >
+          Issue
+        </github-button>
       </span>
       <span class="btn">
-        <github-button href="https://github.com/tangbc/vue-virtual-scroll-list" data-color-scheme="no-preference: dark; light: dark; dark: dark;" data-size="large" data-show-count="true" aria-label="Star tangbc/vue-virtual-scroll-list on GitHub">Star</github-button>
+        <github-button
+          href="https://github.com/tangbc/vue-virtual-scroll-list"
+          data-color-scheme="no-preference: dark; light: dark; dark: dark;"
+          data-size="large"
+          data-show-count="true"
+          aria-label="Star tangbc/vue-virtual-scroll-list on GitHub"
+        >
+          Star
+        </github-button>
       </span>
       <span class="btn">
-        <github-button href="https://github.com/tangbc/vue-virtual-scroll-list/fork" data-color-scheme="no-preference: dark; light: dark; dark: dark;" data-size="large" data-show-count="true" aria-label="Fork tangbc/vue-virtual-scroll-list on GitHub">Fork</github-button>
+        <github-button
+          href="https://github.com/tangbc/vue-virtual-scroll-list/fork"
+          data-color-scheme="no-preference: dark; light: dark; dark: dark;"
+          data-size="large"
+          data-show-count="true"
+          aria-label="Fork tangbc/vue-virtual-scroll-list on GitHub"
+        >
+          Fork
+        </github-button>
       </span>
       <span class="btn">
-        <github-button href="https://github.com/tangbc/vue-virtual-scroll-list/subscription" data-color-scheme="no-preference: dark; light: dark; dark: dark;" data-size="large" data-show-count="true" aria-label="Watch tangbc/vue-virtual-scroll-list on GitHub">Watch</github-button>
+        <github-button
+          href="https://github.com/tangbc/vue-virtual-scroll-list/subscription"
+          data-color-scheme="no-preference: dark; light: dark; dark: dark;"
+          data-size="large"
+          data-show-count="true"
+          aria-label="Watch tangbc/vue-virtual-scroll-list on GitHub"
+        >
+          Watch
+        </github-button>
       </span>
     </div>
 
@@ -47,9 +77,9 @@ export default {
   name: 'index',
 
   data() {
-    return {}
-  }
-}
+    return {};
+  },
+};
 </script>
 
 <style lang="less" scoped>
@@ -68,7 +98,7 @@ export default {
 .head {
   margin-bottom: 3em;
   img {
-    margin-right: .5em;
+    margin-right: 0.5em;
     width: auto;
     height: 24px;
   }
@@ -77,7 +107,7 @@ export default {
   margin: 1em 0;
 }
 ul {
-  padding-left: .5em;
+  padding-left: 0.5em;
 }
 li {
   list-style-position: outside;

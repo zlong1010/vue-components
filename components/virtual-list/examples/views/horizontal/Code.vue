@@ -6,8 +6,7 @@
 </template>
 
 <script>
-const html =
-`
+const html = `
 <virtual-list class="list-horizontal"
   :data-key="'id'"
   :data-sources="items"
@@ -17,17 +16,15 @@ const html =
   :item-class="'list-item-horizontal'"
   :direction="'horizontal'" // make scroll direction in horizontal.
 />
-`
+`;
 
-const js =
-``
+const js = ``;
 
 export default {
   name: 'horizontal-code',
 
-  data () {
-    return { html, js }
-  }
-}
+  data() {
+    return { html, js };
+  },
+};
 </script>
-

@@ -9,19 +9,18 @@
 </template>
 
 <script>
-
 export default {
   name: 'infinite-loading-item',
 
   props: {
     source: {
       type: Object,
-      default () {
-        return {}
-      }
-    }
-  }
-}
+      default() {
+        return {};
+      },
+    },
+  },
+};
 </script>
 
 <style lang="less" scoped>
@@ -36,7 +35,7 @@ export default {
     margin-left: 1em;
   }
   .desc {
-    padding-top: .5em;
+    padding-top: 0.5em;
     text-align: justify;
   }
 }

@@ -13,24 +13,23 @@
 </template>
 
 <script>
-
 export default {
   name: 'chat-room-item',
 
   props: {
     source: {
       type: Object,
-      default () {
+      default() {
         return {
           sid: '',
           user: {},
           content: '',
-          images: []
-        }
-      }
-    }
-  }
-}
+          images: [],
+        };
+      },
+    },
+  },
+};
 </script>
 
 <style lang="less" scoped>
@@ -40,7 +39,7 @@ export default {
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    background: rgba(255, 192, 203, .2);
+    background: rgba(255, 192, 203, 0.2);
     @media (max-width: 640px) {
       width: 30px;
       height: 30px;
@@ -63,7 +62,7 @@ export default {
       max-width: unset;
     }
     .name {
-      padding-bottom: .2em;
+      padding-bottom: 0.2em;
       font-size: 12px;
     }
     .content {
@@ -71,11 +70,11 @@ export default {
       color: #000;
       background-color: aliceblue;
       border-radius: 15px;
-      padding: .5em 1em;
+      padding: 0.5em 1em;
       @media (max-width: 640px) {
-        padding: .5em;
+        padding: 0.5em;
       }
-      &:after{
+      &:after {
         content: '';
         position: absolute;
         right: 100%;

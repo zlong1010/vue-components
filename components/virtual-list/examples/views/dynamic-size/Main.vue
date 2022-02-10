@@ -11,13 +11,9 @@
       <tab v-on:tab-change="onTabChange" />
 
       <div v-show="isShowView">
-        <virtual-list class="list-dynamic scroll-touch"
-          :data-key="'id'"
-          :data-sources="items"
-          :estimate-size="80"
-        >
+        <virtual-list class="list-dynamic scroll-touch" :data-key="'id'" :data-sources="items" :estimate-size="80">
           <template v-slot:item="{ source }">
-            <Item :source="source" class="list-item-dynamic"/>
+            <Item :source="source" class="list-item-dynamic" />
           </template>
         </virtual-list>
       </div>
@@ -28,26 +24,26 @@
 </template>
 
 <script>
-import Item from './Item'
-import Code from './Code'
+import Item from './Item';
+import Code from './Code';
 
-import { Random } from '../../common/mock'
-import getSentences from '../../common/sentences'
-import genUniqueId from '../../common/gen-unique-id'
-import { TAB_TYPE, DEFAULT_TAB } from '../../common/const'
+import { Random } from '../../common/mock';
+import getSentences from '../../common/sentences';
+import genUniqueId from '../../common/gen-unique-id';
+import { TAB_TYPE, DEFAULT_TAB } from '../../common/const';
 
-const TOTAL_COUNT = 10000
+const TOTAL_COUNT = 10000;
 
-const DataItems = []
-let count = TOTAL_COUNT
+const DataItems = [];
+let count = TOTAL_COUNT;
 while (count--) {
-  const index = TOTAL_COUNT - count
+  const index = TOTAL_COUNT - count;
   DataItems.push({
     index,
     name: Random.name(),
     id: genUniqueId(index),
-    desc: getSentences()
-  })
+    desc: getSentences(),
+  });
 }
 
 export default {
@@ -58,21 +54,21 @@ export default {
     Item,
   },
 
-  data () {
+  data() {
     return {
       total: TOTAL_COUNT.toLocaleString(),
       items: DataItems,
       itemComponent: Item,
-      isShowView: DEFAULT_TAB === TAB_TYPE.VIEW
-    }
+      isShowView: DEFAULT_TAB === TAB_TYPE.VIEW,
+    };
   },
 
   methods: {
-    onTabChange (type) {
-      this.isShowView = type === TAB_TYPE.VIEW
-    }
-  }
-}
+    onTabChange(type) {
+      this.isShowView = type === TAB_TYPE.VIEW;
+    },
+  },
+};
 </script>
 
 <style lang="less">

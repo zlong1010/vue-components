@@ -43,7 +43,7 @@ const VirtualList = Vue.component('virtual-list', {
   },
 
   watch: {
-    'dataSources.length': function() {
+    'dataSources.length': function () {
       this.virtual.updateParam('uniqueIds', this.getUniqueIdFromDataSources());
       this.virtual.handleDataSourcesChange();
     },
@@ -202,9 +202,7 @@ const VirtualList = Vue.component('virtual-list', {
         const rect = rootEle.getBoundingClientRect();
         const { defaultView } = rootEle.ownerDocument;
         // pageXOffset pageYOffset
-        const offsetFront = this.isHorizontal
-          ? rect.left + defaultView.scrollX
-          : rect.top + defaultView.scrollY;
+        const offsetFront = this.isHorizontal ? rect.left + defaultView.scrollX : rect.top + defaultView.scrollY;
         this.virtual.updateParam('slotHeaderSize', offsetFront);
       }
     },
@@ -237,7 +235,9 @@ const VirtualList = Vue.component('virtual-list', {
 
     getUniqueIdFromDataSources() {
       const { dataKey } = this;
-      return this.dataSources.map(dataSource => (typeof dataKey === 'function' ? dataKey(dataSource) : dataSource[dataKey]));
+      return this.dataSources.map(dataSource =>
+        typeof dataKey === 'function' ? dataKey(dataSource) : dataSource[dataKey],
+      );
     },
 
     // event called when each item mounted or size changed
@@ -419,18 +419,18 @@ const VirtualList = Vue.component('virtual-list', {
         // header slot
         header
           ? h(
-            Slot,
-            {
-              class: this.headerClass,
-              style: this.headerStyle,
-              props: {
-                tag: this.headerTag,
-                event: EVENT_TYPE.SLOT,
-                uniqueKey: SLOT_TYPE.HEADER,
+              Slot,
+              {
+                class: this.headerClass,
+                style: this.headerStyle,
+                props: {
+                  tag: this.headerTag,
+                  event: EVENT_TYPE.SLOT,
+                  uniqueKey: SLOT_TYPE.HEADER,
+                },
               },
-            },
-            header,
-          )
+              header,
+            )
           : null,
 
         // main list
@@ -447,18 +447,18 @@ const VirtualList = Vue.component('virtual-list', {
         // footer slot
         footer
           ? h(
-            Slot,
-            {
-              class: this.footerClass,
-              style: this.footerStyle,
-              props: {
-                tag: this.footerTag,
-                event: EVENT_TYPE.SLOT,
-                uniqueKey: SLOT_TYPE.FOOTER,
+              Slot,
+              {
+                class: this.footerClass,
+                style: this.footerStyle,
+                props: {
+                  tag: this.footerTag,
+                  event: EVENT_TYPE.SLOT,
+                  uniqueKey: SLOT_TYPE.FOOTER,
+                },
               },
-            },
-            footer,
-          )
+              footer,
+            )
           : null,
 
         // an empty element use to scroll to bottom

@@ -1,52 +1,51 @@
 <template>
   <div class="tab">
-    <div v-on:click="eventClickView" class="tab-item view" v-bind:class="{active: isView}">VIEW</div>
-    <div v-on:click="eventClickCode" class="tab-item code" v-bind:class="{active: !isView}">CODE</div>
+    <div v-on:click="eventClickView" class="tab-item view" v-bind:class="{ active: isView }">VIEW</div>
+    <div v-on:click="eventClickCode" class="tab-item code" v-bind:class="{ active: !isView }">CODE</div>
     <a v-show="!isView" class="complete-code-url" target="_blank" v-bind:href="completeCodeUrl">COMPLETE CODE</a>
   </div>
 </template>
 
 <script>
-import getCodeUrl from '../common/get-code-url'
-import { TAB_TYPE, DEFAULT_TAB } from '../common/const'
-
+import getCodeUrl from '../common/get-code-url';
+import { TAB_TYPE, DEFAULT_TAB } from '../common/const';
 
 export default {
   name: 'tab',
 
-  data () {
+  data() {
     return {
       completeCodeUrl: '',
-      active: DEFAULT_TAB
-    }
+      active: DEFAULT_TAB,
+    };
   },
 
   computed: {
-    isView () {
-      return this.active === TAB_TYPE.VIEW
-    }
+    isView() {
+      return this.active === TAB_TYPE.VIEW;
+    },
   },
 
-  mounted () {
-    this.completeCodeUrl = getCodeUrl()
+  mounted() {
+    this.completeCodeUrl = getCodeUrl();
   },
 
   methods: {
-    eventClickView () {
-      this.active = TAB_TYPE.VIEW
-      this.emitEvent()
+    eventClickView() {
+      this.active = TAB_TYPE.VIEW;
+      this.emitEvent();
     },
 
-    eventClickCode () {
-      this.active = TAB_TYPE.CODE
-      this.emitEvent()
+    eventClickCode() {
+      this.active = TAB_TYPE.CODE;
+      this.emitEvent();
     },
 
-    emitEvent () {
-      this.$emit('tab-change', this.active)
-    }
-  }
-}
+    emitEvent() {
+      this.$emit('tab-change', this.active);
+    },
+  },
+};
 </script>
 
 <style lang="less" scoped>
@@ -63,7 +62,7 @@ export default {
     font-size: 14px;
     font-weight: 400;
     width: 85px;
-    margin-right: .5em;
+    margin-right: 0.5em;
     height: 35px;
     display: flex;
     align-items: center;
@@ -71,7 +70,7 @@ export default {
     position: relative;
     top: 1px;
     cursor: pointer;
-    opacity: .3;
+    opacity: 0.3;
     background-size: 20px 20px;
     background-repeat: no-repeat;
     background-position: 0 center;

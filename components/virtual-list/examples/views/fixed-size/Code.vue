@@ -6,18 +6,16 @@
 </template>
 
 <script>
-const html =
-`
+const html = `
 <virtual-list class="list"
   :data-key="'id'"
   :data-sources="items"
   :data-component="itemComponent"
   :estimate-size="60"
 />
-`
+`;
 
-const js =
-`
+const js = `
 import Item from './Item'
 const items = [
   {
@@ -37,14 +35,13 @@ export default {
   }
   ...
 }
-`
+`;
 
 export default {
   name: 'fix-size-code',
 
-  data () {
-    return { html, js }
-  }
-}
+  data() {
+    return { html, js };
+  },
+};
 </script>
-

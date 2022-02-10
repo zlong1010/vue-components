@@ -3,22 +3,21 @@
 </template>
 
 <script>
-
 export default {
   name: 'introduction',
 
   props: {
     description: {
-      type: String
-    }
-  }
-}
+      type: String,
+    },
+  },
+};
 </script>
 
 <style lang="less" scoped>
 .introduction {
   font-size: 16px;
-  padding: .5em 1em;
+  padding: 0.5em 1em;
   border-radius: 3px;
   background-color: ghostwhite;
   @media (max-width: 640px) {

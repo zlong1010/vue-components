@@ -1,7 +1,9 @@
 <template>
   <div>
     <div class="title">This example source code please refer to:</div>
-    <p><a v-bind:href="href" target="_blank">{{ href }}</a></p>
+    <p>
+      <a v-bind:href="href" target="_blank">{{ href }}</a>
+    </p>
 
     <div>Here provide a common child-to-parent dispatch mixins code:</div>
     <code-high-light type="js" :code="mixin" />
@@ -9,10 +11,9 @@
 </template>
 
 <script>
-import getCodeUrl from '../../common/get-code-url'
+import getCodeUrl from '../../common/get-code-url';
 
-const mixinCode =
-`
+const mixinCode = `
 export default {
   methods: {
     dispatch (componentName, eventName, ...rest) {
@@ -32,22 +33,22 @@ export default {
     }
   }
 }
-`
+`;
 
 export default {
   name: 'keep-state-code',
 
-  data () {
+  data() {
     return {
       href: '',
-      mixin: mixinCode
-    }
+      mixin: mixinCode,
+    };
   },
 
-  mounted () {
-    this.href = getCodeUrl()
-  }
-}
+  mounted() {
+    this.href = getCodeUrl();
+  },
+};
 </script>
 
 <style lang="less" scoped>
@@ -55,4 +56,3 @@ export default {
   margin: 3em 0 2em 0;
 }
 </style>
-

@@ -1,6 +1,6 @@
 import toast from './src/index';
 
-toast.install = function(Vue) {
+toast.install = function (Vue) {
   Vue.prototype.$toast = toast;
 };
 

@@ -6,19 +6,18 @@
 </template>
 
 <script>
-
 export default {
   name: 'fix-size-item',
 
   props: {
     source: {
       type: Object,
-      default () {
-        return {}
-      }
-    }
-  }
-}
+      default() {
+        return {};
+      },
+    },
+  },
+};
 </script>
 
 <style lang="less" scoped>

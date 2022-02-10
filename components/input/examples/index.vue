@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Input width="360px"/>
+    <Input width="360px" />
   </div>
 </template>
 

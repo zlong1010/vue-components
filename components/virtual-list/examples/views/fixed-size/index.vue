@@ -7,14 +7,9 @@
       <tab v-on:tab-change="onTabChange" />
 
       <div v-show="isShowView">
-        <virtual-list
-          class="list scroll-touch"
-          :data-key="'id'"
-          :data-sources="items"
-          :estimate-size="50"
-        >
+        <virtual-list class="list scroll-touch" :data-key="'id'" :data-sources="items" :estimate-size="50">
           <template v-slot:item="{ source }">
-            <Item :source="source" class="list-item-fixed"/>
+            <Item :source="source" class="list-item-fixed" />
           </template>
           <h1 slot="header">header slot</h1>
         </virtual-list>

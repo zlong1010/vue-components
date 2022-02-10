@@ -6,8 +6,7 @@
 </template>
 
 <script>
-const html =
-`
+const html = `
 <virtual-list
   :data-key="'id'"
   :data-sources="items"
@@ -17,10 +16,9 @@ const html =
 >
   <div slot="footer" class="loading-spinner">Loading ...</div>
 </virtual-list>
-`
+`;
 
-const js =
-`
+const js = `
 export default {
   data () {
     return {
@@ -35,14 +33,13 @@ export default {
     }
   }
 }
-`
+`;
 
 export default {
   name: 'infinite-loading-code',
 
-  data () {
-    return { html, js }
-  }
-}
+  data() {
+    return { html, js };
+  },
+};
 </script>
-

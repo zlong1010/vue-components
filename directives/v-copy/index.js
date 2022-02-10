@@ -10,15 +10,15 @@ function copyString(str) {
   if (navigator.clipboard) {
     return navigator.clipboard.writeText(str);
   }
-  const input = document.createElement("textarea");
-  input.readOnly = "readonly";
+  const input = document.createElement('textarea');
+  input.readOnly = 'readonly';
   input.style.position = 'fixed';
   input.style.clip = 'rect(0 0 0 0)';
   input.style.top = '10px';
   input.value = str;
   document.body.appendChild(input);
   input.select();
-  const isSuccess = document.execCommand("copy");
+  const isSuccess = document.execCommand('copy');
   document.body.removeChild(input);
   return isSuccess;
 }

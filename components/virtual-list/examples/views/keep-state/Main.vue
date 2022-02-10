@@ -1,7 +1,9 @@
 <template>
   <div class="example">
     <github-corner />
-    <introduction description="Maintaining item component inner state is a trouble here, recommend to use only props data." />
+    <introduction
+      description="Maintaining item component inner state is a trouble here, recommend to use only props data."
+    />
 
     <div class="example-content">
       <tab v-on:tab-change="onTabChange" />
@@ -9,13 +11,9 @@
       <div class="selects" v-show="isShowView">{{ selectNames }}</div>
 
       <div v-show="isShowView">
-        <virtual-list class="list-keep scroll-touch"
-          :data-key="'id'"
-          :data-sources="items"
-          :estimate-size="60"
-        >
+        <virtual-list class="list-keep scroll-touch" :data-key="'id'" :data-sources="items" :estimate-size="60">
           <template v-slot:item="{ source }">
-            <Item :source="source" class="list-item-keep"/>
+            <Item :source="source" class="list-item-keep" />
           </template>
         </virtual-list>
       </div>
@@ -26,25 +24,25 @@
 </template>
 
 <script>
-import Item from './Item'
-import Code from './Code'
+import Item from './Item';
+import Code from './Code';
 
-import { Random } from '../../common/mock'
-import genUniqueId from '../../common/gen-unique-id'
-import { TAB_TYPE, DEFAULT_TAB } from '../../common/const'
+import { Random } from '../../common/mock';
+import genUniqueId from '../../common/gen-unique-id';
+import { TAB_TYPE, DEFAULT_TAB } from '../../common/const';
 
-const TOTAL_COUNT = 1000
+const TOTAL_COUNT = 1000;
 
-const DataItems = []
-let count = TOTAL_COUNT
+const DataItems = [];
+let count = TOTAL_COUNT;
 while (count--) {
-  const index = TOTAL_COUNT - count
+  const index = TOTAL_COUNT - count;
   DataItems.push({
     index,
     name: Random.name(),
     id: genUniqueId(index),
-    checked: false
-  })
+    checked: false,
+  });
 }
 
 export default {
@@ -55,40 +53,42 @@ export default {
     Item,
   },
 
-  data () {
+  data() {
     return {
       items: DataItems,
       itemComponent: Item,
-      isShowView: DEFAULT_TAB === TAB_TYPE.VIEW
-    }
+      isShowView: DEFAULT_TAB === TAB_TYPE.VIEW,
+    };
   },
 
   computed: {
-    selectNames () {
-      return this.items.map((item) => {
-        if (item.checked) {
-          return item.name
-        }
-      }).filter((item) => !!item)
-    }
+    selectNames() {
+      return this.items
+        .map(item => {
+          if (item.checked) {
+            return item.name;
+          }
+        })
+        .filter(item => !!item);
+    },
   },
 
-  created () {
+  created() {
     // detecting change checked value from item component event.
     this.$on('checkBoxValueChange', (id, value) => {
-      const targetItem = this.items.find((item) => item.id === id)
+      const targetItem = this.items.find(item => item.id === id);
       if (targetItem) {
-        targetItem.checked = value
+        targetItem.checked = value;
       }
-    })
+    });
   },
 
   methods: {
-    onTabChange (type) {
-      this.isShowView = type === TAB_TYPE.VIEW
-    }
-  }
-}
+    onTabChange(type) {
+      this.isShowView = type === TAB_TYPE.VIEW;
+    },
+  },
+};
 </script>
 
 <style lang="less">

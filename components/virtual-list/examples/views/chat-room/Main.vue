@@ -6,7 +6,9 @@
 
     <div class="main">
       <div class="list-container">
-        <virtual-list v-show="!!messages.length" ref="vsl"
+        <virtual-list
+          v-show="!!messages.length"
+          ref="vsl"
           :class="['stream', 'scroll-touch', { overflow }]"
           :data-key="'sid'"
           :data-sources="messages"
@@ -19,7 +21,7 @@
             <div class="finished" v-show="finished">No more data</div>
           </div>
           <template v-slot:item="{ source, index }">
-            <Item :source="source" :class="['stream-item', addItemClass(index)]"/>
+            <Item :source="source" :class="['stream-item', addItemClass(index)]" />
           </template>
         </virtual-list>
         <div class="empty" v-show="!messages.length">
@@ -36,11 +38,11 @@
 
 <script>
 /* eslint-disable */
-import Item from './Item'
-import Editor from './Editor'
-import Toolbar from './Toolbar'
-import getSentences from '../../common/sentences'
-import { getMessages, getSids, LOAD_TYPES, getLoadType } from './util'
+import Item from './Item';
+import Editor from './Editor';
+import Toolbar from './Toolbar';
+import getSentences from '../../common/sentences';
+import { getMessages, getSids, LOAD_TYPES, getLoadType } from './util';
 
 export default {
   name: 'chat-room',
@@ -49,52 +51,52 @@ export default {
     'tool-bar': Toolbar,
     Item,
   },
-  data () {
+  data() {
     return {
       finished: false,
       messages: [],
       messageComponent: Item,
-      overflow: false
-    }
+      overflow: false,
+    };
   },
 
-  created () {
-    const loadType = getLoadType()
+  created() {
+    const loadType = getLoadType();
     this.param = {
       pageSize: loadType === LOAD_TYPES.FEW ? 2 : 10,
       isFirstPageReady: false,
-      isFetching: false
-    }
+      isFetching: false,
+    };
 
-    this.finished = loadType !== LOAD_TYPES.PAGES
+    this.finished = loadType !== LOAD_TYPES.PAGES;
 
     if (loadType !== LOAD_TYPES.EMPTY) {
       // first page request
-      getMessages(this.param.pageSize).then((messages) => {
-        this.messages = this.messages.concat(messages)
-      })
+      getMessages(this.param.pageSize).then(messages => {
+        this.messages = this.messages.concat(messages);
+      });
     }
   },
 
   methods: {
-    onTotop () {
+    onTotop() {
       // only page type has paging
       if (getLoadType() !== LOAD_TYPES.PAGES || this.param.isFetching) {
-        return
+        return;
       }
 
-      this.param.isFetching = true
+      this.param.isFetching = true;
 
       // get next page
-      getMessages(this.param.pageSize, true).then((messages) => {
+      getMessages(this.param.pageSize, true).then(messages => {
         if (!messages.length) {
-          this.finished = true
-          return
+          this.finished = true;
+          return;
         }
 
         // const sids = getSids(messages)
         // const preNum = this.messages.length;
-        this.messages = messages.concat(this.messages)
+        this.messages = messages.concat(this.messages);
         this.$nextTick(() => {
           const vsl = this.$refs.vsl;
           // 总的偏移量
@@ -103,86 +105,87 @@ export default {
           //   const previousSize = typeof previousValue === 'string' ? vsl.getSize(previousValue) : previousValue
           //   return previousSize + this.$refs.vsl.getSize(currentSid)
           // })
-          this.setVirtualListToOffset(offset)
+          this.setVirtualListToOffset(offset);
 
-          this.param.isFetching = false
-        })
-      })
+          this.param.isFetching = false;
+        });
+      });
     },
 
-    onItemRendered () {
+    onItemRendered() {
       if (!this.$refs.vsl) {
-        return
+        return;
       }
       // first page items are all mounted, scroll to bottom
       if (!this.param.isFirstPageReady && this.$refs.vsl.getItemsRendFinish()) {
-        this.param.isFirstPageReady = true
-        this.setVirtualListToBottom()
+        this.param.isFirstPageReady = true;
+        this.setVirtualListToBottom();
       }
       this.checkOverFlow();
     },
 
-    onSendMessage (message) {
-      this.messages.push(message)
+    onSendMessage(message) {
+      this.messages.push(message);
       this.$nextTick(() => {
-        this.setVirtualListToBottom()
-      })
+        this.setVirtualListToBottom();
+      });
     },
 
     // update item wrapper class dynamic
-    addItemClass (index) {
-      return (this.messages[index] && this.messages[index].isCreator) ? 'creator' : ''
+    addItemClass(index) {
+      return this.messages[index] && this.messages[index].isCreator ? 'creator' : '';
     },
 
-    checkOverFlow () {
-      const vsl = this.$refs.vsl
+    checkOverFlow() {
+      const vsl = this.$refs.vsl;
       if (vsl) {
-        this.overflow = vsl.getScrollSize() > vsl.getClientSize()
+        this.overflow = vsl.getScrollSize() > vsl.getClientSize();
       }
     },
 
     // mock received message
-    receivedRandomMessage () {
-      getMessages(1).then((messages) => {
-        this.messages = this.messages.concat(messages)
+    receivedRandomMessage() {
+      getMessages(1).then(messages => {
+        this.messages = this.messages.concat(messages);
         this.$nextTick(() => {
-          this.setVirtualListToBottom()
-        })
-      })
+          this.setVirtualListToBottom();
+        });
+      });
     },
 
     // mock send message
-    sendRandomMessage (message) {
-      message.content = getSentences()
-      this.onSendMessage(message)
+    sendRandomMessage(message) {
+      message.content = getSentences();
+      this.onSendMessage(message);
     },
 
-    setVirtualListToIndex (index) {
+    setVirtualListToIndex(index) {
       if (this.$refs.vsl) {
-        this.$refs.vsl.scrollToIndex(index)
+        this.$refs.vsl.scrollToIndex(index);
       }
     },
 
-    setVirtualListToOffset (offset) {
+    setVirtualListToOffset(offset) {
       if (this.$refs.vsl) {
-        this.$refs.vsl.scrollToOffset(offset)
+        this.$refs.vsl.scrollToOffset(offset);
       }
     },
 
-    setVirtualListToBottom () {
+    setVirtualListToBottom() {
       if (this.$refs.vsl) {
-        this.$refs.vsl.scrollToBottom()
+        this.$refs.vsl.scrollToBottom();
       }
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
 <style lang="less">
 .main {
   margin-top: 1em;
 }
-.stream, .empty {
+.stream,
+.empty {
   position: relative;
   width: 100%;
   height: 500px;
@@ -203,7 +206,7 @@ export default {
     align-items: center;
     padding: 1em;
     @media (max-width: 640px) {
-      padding: .5em;
+      padding: 0.5em;
     }
     &.creator {
       flex-direction: row-reverse;
@@ -231,7 +234,7 @@ export default {
   }
 }
 .header {
-  padding: .5em;
+  padding: 0.5em;
   .finished {
     font-size: 14px;
     text-align: center;

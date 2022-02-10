@@ -58,7 +58,7 @@ const Wrapper = {
         index: this.index,
         offsetLeft,
         offsetTop,
-        offsetHeight
+        offsetHeight,
       });
       // this.hasInitial = true;
     },
