@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-// import Index from "../views/home/Main.vue";
+import Home from '../views';
 
 Vue.use(VueRouter);
 
@@ -8,12 +8,12 @@ const config = [
   {
     path: '/',
     name: 'home',
-    component: () => import('../../components/input'),
+    component: Home,
   },
   {
     path: '/input',
     name: 'input',
-    component: () => import('../../components/input'),
+    component: () => import('../../components/input/examples'),
     // component: () => import(/* webpackChunkName: "fixed-size" */ "../views/fixed-size/Main.vue"),
   },
 ];

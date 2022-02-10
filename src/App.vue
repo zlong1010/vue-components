@@ -1,30 +1,41 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/input">input</router-link>
+    <Header />
+    <div class="page-wrap">
+      <div id="nav">
+        <router-link to="/input">input</router-link>
+      </div>
+      <router-view class="page-content" />
     </div>
-    <Input />
   </div>
 </template>
 
 <script>
-import Input from "../components/input/examples";
-
+import Header from './components/header';
 export default {
-  name: "App",
-  components: {
-    Input,
-  },
+  name: 'App',
+  components: { Header },
 };
 </script>
 
 <style>
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  width: 80%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.page-wrap {
+  display: flex;
+  outline: 1px solid red;
+}
+#nav {
+  flex: 0 0 auto;
+  height: calc(100vh - 32px);
+  min-width: 10rem;
+  overflow: auto;
+  background-color: aqua;
+}
+.page-content {
+  margin-left: 24px;
 }
 </style>
