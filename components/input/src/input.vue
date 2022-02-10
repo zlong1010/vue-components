@@ -1,8 +1,8 @@
 <template>
-  <div class="c-inputv2-wrap">
+  <div class="c-input">
     <div :class="[`${clsPrefix}-search`, { search }]">
       <span v-if="search" class="icon_search"></span>
-      <div class="c-inputv2-desc-wrap">
+      <div class="c-input-desc-wrap">
         <div :class="[`${clsPrefix}-content`, { textarea, copy: hasCopy }]" :style="inputStyle">
           <textarea v-if="textarea" v-bind="attrs" :value="value" v-on="listeners" class="input" :placeholder="visibleFakerVal ? '' : placeholder"></textarea>
           <input v-else v-bind="attrs" :value="value" v-on="listeners" class="input" :placeholder="visibleFakerVal ? '' : placeholder"/>
@@ -21,7 +21,6 @@
 </template>
 
 <script>
-
 const defaultAttr = {
   type: 'text',
 };
@@ -65,7 +64,7 @@ export default {
   },
   data() {
     return {
-      clsPrefix: 'c-inputv2',
+      clsPrefix: 'c-input',
       numWord: 0,
       hasChanged: false, // 处理ie bug
       firstFocus: false, // focus一次之后不再显示faker value
@@ -180,9 +179,9 @@ function copyString(str) {
 </script>
 
 <style lang="less" scoped>
-.c-inputv2-wrap {
+.c-input {
   position: relative;
-  .c-inputv2-search {
+  .c-input-search {
     position: relative;
     .icon_search {
       margin-left: 8px;
@@ -198,9 +197,9 @@ function copyString(str) {
       }
     }
   }
-  .c-inputv2-desc-wrap {
+  .c-input-desc-wrap {
     position: relative;
-    .c-inputv2-desc {
+    .c-input-desc {
       position: absolute;
       top: 50%;
       transform: translateY(-50%);
@@ -219,8 +218,7 @@ function copyString(str) {
       }
     }
   }
-  .c-inputv2-content {
-    // width: 360px;
+  .c-input-content {
     min-height: 40px;
     position: relative;
     background: #ffffff;
@@ -238,9 +236,18 @@ function copyString(str) {
     }
     input {
       width: 100%;
+      height: 40px;
+      border: 1px solid #dcdfe6;
       border-radius: 4px;
       vertical-align: middle;
       transition: border 0.15s ease-out;
+      outline: none;
+      text-indent: 12px;
+      font-size: 14px;
+      color: #06003b;
+      &:focus {
+        border-color: #3a51e0;
+      }
     }
     textarea {
       width: 100%;
@@ -253,6 +260,7 @@ function copyString(str) {
       vertical-align: middle;
       overflow: auto; // 隐藏ie滚动条
       transition: border 0.15s ease-out;
+      outline: none;
       .min-placeholder {
         font-size: 14px;
         color: #c0c4cc;
@@ -277,7 +285,7 @@ function copyString(str) {
       right: 12px;
       transform: translateY(-50%);
     }
-    .c-inputv2-count {
+    .c-input-count {
       position: absolute;
       bottom: 8px;
       right: 8px;
@@ -301,7 +309,7 @@ function copyString(str) {
       }
     }
   }
-  .c-inputv2-error {
+  .c-input-error {
     max-width: 358px;
     display: flex;
     margin-top: 8px;

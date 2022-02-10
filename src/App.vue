@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import Input from "../components/input";
+import Input from "../components/input/examples";
 
 export default {
   name: "App",

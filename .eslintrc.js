@@ -21,6 +21,7 @@ module.exports = {
       asyncArrow: 'always',
     }],
     semi: ['error', 'always'],
+    quotes: [0, 'single'],
     camelcase: 0, // 不强制要求驼峰为了兼容后端Api名字的写法
   },
 };
