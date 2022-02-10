@@ -27,7 +27,7 @@ const defaultAttr = {
 };
 
 export default {
-  name: 'InputV2',
+  name: 'Input',
   inheritAttrs: false,
   props: {
     value: [String, Number],
