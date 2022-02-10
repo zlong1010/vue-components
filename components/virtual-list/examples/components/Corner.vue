@@ -1,28 +1,24 @@
 <template>
-  <a v-if="!isMobile" :href="url" class="github-corner" aria-label="View source on GitHub">
-    github
-  </a>
+  <a v-if="!isMobile" :href="url" class="github-corner" aria-label="View source on GitHub">github</a>
 </template>
 
 <script>
-import { isMobile } from '../common/ua'
-import getCodeUrl from '../common/get-code-url'
+import { isMobile } from '../common/ua';
+import getCodeUrl from '../common/get-code-url';
 
 export default {
   name: 'github-corner',
-
-  data () {
+  data() {
     return {
       url: '',
       size: 80,
-      isMobile
-    }
+      isMobile,
+    };
   },
-
-  mounted () {
-    this.url = getCodeUrl()
-  }
-}
+  mounted() {
+    this.url = getCodeUrl();
+  },
+};
 </script>
 
 <style lang="less" scoped>

@@ -2,8 +2,6 @@
   <div class="p-virtual-list">
     <div class="tab-list" @click="toggleAct">
       <span data-k="Fixed">固定尺寸</span>
-      <router-link to="/fixed-size">fixed size</router-link>
-      <span class="line">|</span>
       <router-link to="/dynamic-size">dynamic size</router-link>
       <span class="line">|</span>
       <router-link to="/horizontal">horizontal</router-link>
@@ -27,7 +25,7 @@ export default {
   components: { Fixed },
   data() {
     return {
-      who: '',
+      who: Fixed,
     };
   },
   methods: {
@@ -48,11 +46,6 @@ export default {
 }
 
 .tab-list {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  background-color: #9b4cca;
   color: #fff;
   height: 40px;
   display: flex;
