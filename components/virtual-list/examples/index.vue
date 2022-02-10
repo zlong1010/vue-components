@@ -1,7 +1,7 @@
 <template>
   <div class="p-virtual-list">
     <div class="tab-list" @click="toggleAct">
-      <span data-k="Fixed">固定尺寸</span>
+      <span data-k="fix-size">固定尺寸</span>
       <router-link to="/dynamic-size">dynamic size</router-link>
       <span class="line">|</span>
       <router-link to="/horizontal">horizontal</router-link>
@@ -19,13 +19,42 @@
 </template>
 
 <script>
-import Fixed from './views/fixed-size';
+import Vue from 'vue';
+import VirtualList from '../src';
+Vue.component('virtual-list', VirtualList);
+
+const requireGlobal = require.context('./components', false, /\w+\.(vue|js)$/);
+const successCmp = [];
+requireGlobal.keys().forEach(fileName => {
+  const componentConfig = requireGlobal(fileName);
+  const cmp = componentConfig.default || componentConfig;
+  if (!cmp.name) {
+    console.error(`${fileName} no component name!`);
+    return;
+  }
+  successCmp.push(cmp.name);
+  Vue.component(cmp.name, cmp);
+});
+console.log('\n全局注册:\n', successCmp.join('\n'));
+
+// 批量注册局部组件
+const requireComponent = require.context('./views', true, /(Main|index)\.(vue|js)$/);
+const cmps = {};
+requireComponent.keys().map(fileName => {
+  const cmp = requireComponent(fileName).default || componentConfig;
+  if (!cmp.name) {
+    console.error(`${fileName} no component name!`);
+    return;
+  }
+  cmps[cmp.name] = cmp;
+});
+console.log('收集到以下组件: \n', Object.keys(cmps).join('\n'));
 
 export default {
-  components: { Fixed },
+  components: cmps,
   data() {
     return {
-      who: Fixed,
+      who: 'fix-size',
     };
   },
   methods: {

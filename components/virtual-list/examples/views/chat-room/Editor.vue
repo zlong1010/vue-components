@@ -22,8 +22,9 @@
 </template>
 
 <script>
-import { isMobile } from '../../common/ua';
 import { genBody, genSid } from './util';
+
+const isMobile = window.isMobile;
 
 const genMessage = content => {
   let body = genBody();

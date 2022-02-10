@@ -5,6 +5,13 @@ module.exports = {
   productionSourceMap: false,
   publicPath: './',
   outputDir: resolve(__dirname, './docs'),
+  devServer: {
+    port: '9000',
+    overlay: {
+      warnings: false,
+      errors: true,
+    },
+  },
   configureWebpack: {
     resolve: {
       alias: {

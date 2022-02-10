@@ -28,7 +28,8 @@ export function dispatch(context, componentName, eventName, ...rest) {
   }
 }
 
-const VirtualList = Vue.component('virtual-list', {
+// const VirtualList = Vue.component('virtual-list', {
+export default {
   props: VirtualProps,
 
   data() {
@@ -43,7 +44,7 @@ const VirtualList = Vue.component('virtual-list', {
   },
 
   watch: {
-    'dataSources.length': function () {
+    'dataSources.length': function() {
       this.virtual.updateParam('uniqueIds', this.getUniqueIdFromDataSources());
       this.virtual.handleDataSourcesChange();
     },
@@ -472,6 +473,7 @@ const VirtualList = Vue.component('virtual-list', {
       ],
     );
   },
-});
+};
+// });
 
-export default VirtualList;
+// export default VirtualList;
