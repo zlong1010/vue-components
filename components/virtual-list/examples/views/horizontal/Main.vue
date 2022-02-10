@@ -13,14 +13,14 @@
           class="list-horizontal scroll-touch"
           :data-key="'id'"
           :data-sources="items"
-          :data-component="itemComponent"
           :estimate-size="110"
           :direction="'horizontal'"
-          :wrap-class="'wrapper'"
-          :item-class="'list-item-horizontal'"
-        />
+          :wrap-class="'wrapper'">
+          <template v-slot:item="{ source }">
+            <Item :source="source" class="list-item-horizontal" />
+          </template>
+        </virtual-list>
       </div>
-
       <codeblock v-show="!isShowView" />
     </div>
   </div>
@@ -50,19 +50,16 @@ while (count--) {
 
 export default {
   name: 'horizontal',
-
   components: {
     codeblock: Code,
+    Item,
   },
-
   data() {
     return {
       items: DataItems,
-      itemComponent: Item,
       isShowView: DEFAULT_TAB === TAB_TYPE.VIEW,
     };
   },
-
   methods: {
     onTabChange(type) {
       this.isShowView = type === TAB_TYPE.VIEW;

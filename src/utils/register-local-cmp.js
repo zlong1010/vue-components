@@ -9,4 +9,4 @@
 //   }
 //   cmps[cmp.name] = cmp;
 // });
-// console.log('收集到以下组件：', Object.keys(cmps).join('\n'));
+// console.log('局部注册：', Object.keys(cmps).join('\n'));

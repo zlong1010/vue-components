@@ -2,17 +2,12 @@
   <div class="p-virtual-list">
     <div class="tab-list" @click="toggleAct">
       <span data-k="fix-size">固定尺寸</span>
-      <router-link to="/dynamic-size">dynamic size</router-link>
-      <span class="line">|</span>
-      <router-link to="/horizontal">horizontal</router-link>
-      <span class="line">|</span>
-      <router-link to="/infinite-loading">infinite loading</router-link>
-      <span class="line">|</span>
-      <router-link to="/keep-state">keep state</router-link>
-      <span class="line">|</span>
-      <router-link to="/page-mode">page mode</router-link>
-      <span class="line">|</span>
-      <router-link to="/chat-room">chat room</router-link>
+      <span data-k="dynamic-size">动态尺寸</span>
+      <span data-k="horizontal">水平滚动</span>
+      <span data-k="infinite-loading">无限下拉</span>
+      <span data-k="keep-state">维护状态</span>
+      <span data-k="page-mode">页面模式</span>
+      <span data-k="chat-room">chat-room</span>
     </div>
     <component :is="who" />
   </div>
@@ -48,7 +43,7 @@ requireComponent.keys().map(fileName => {
   }
   cmps[cmp.name] = cmp;
 });
-console.log('收集到以下组件: \n', Object.keys(cmps).join('\n'));
+console.log('局部注册: \n', Object.keys(cmps).join('\n'));
 
 export default {
   components: cmps,
@@ -82,8 +77,9 @@ export default {
   padding-left: 1em;
   white-space: nowrap;
   overflow-x: auto;
-  z-index: 2;
   > * {
+    margin-right: 16px;
+    color: #3a51e0;
     cursor: pointer;
   }
   @media (max-width: 640px) {

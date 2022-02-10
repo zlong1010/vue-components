@@ -1,5 +1,6 @@
 // import DebugBox from './debug';
 
+const Log = false;
 const DIRECTION_TYPE = {
   FRONT: 'FRONT', // scroll up or left
   BEHIND: 'BEHIND', // scroll down or right
@@ -13,7 +14,7 @@ const LEADING_BUFFER = 0;
 
 export default class Virtual {
   constructor(param, callUpdate) {
-    console.log('\ninit virtual');
+    Log && console.log('\ninit virtual');
     this.init(param, callUpdate);
   }
 

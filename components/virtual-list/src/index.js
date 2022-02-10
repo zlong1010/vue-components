@@ -12,6 +12,8 @@ const SLOT_TYPE = {
   FOOTER: 'tfoot',
 };
 
+const Log = false;
+
 export function dispatch(context, componentName, eventName, ...rest) {
   let parent = context.$parent || context.$root;
   let { name } = parent.$options;
@@ -252,7 +254,7 @@ export default {
         const overRow = Math.ceil((index + 1) / this.colNum) - Math.ceil((preItemSize.index + 1) / this.colNum);
         if (index > preItemSize.index && overRow < 2) {
           const preOffsetHeight = offsetTop - preItemSize.top;
-          // console.log(`\npreInd:${preItemSize.index}  index:${index} %ch: ${preOffsetHeight}`, 'color:red');
+          // Log && console.log(`\npreInd:${preItemSize.index}  index:${index} %ch: ${preOffsetHeight}`, 'color:red');
           // 每行最后一项的size
           preOffsetHeight && this.virtual.saveSize(preItemSize.index, preOffsetHeight);
           this.stopCalcuColNum = true;
@@ -359,7 +361,7 @@ export default {
       const { dataKey, dataSources } = this;
       const { start, end } = this.range;
       const slots = [];
-      console.log('\n%crender!%c start: %d end: %d\n', 'color:red', '', start, end);
+      Log && console.log('\n%crender!%c start: %d end: %d\n', 'color:red', '', start, end);
       if (end <= start || dataSources.length === 0) {
         return [];
       }
