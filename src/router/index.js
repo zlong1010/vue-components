@@ -33,7 +33,7 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 const router = new VueRouter({
-  mode: 'history',
+  // mode: 'history',
   routes: config,
 });
 
