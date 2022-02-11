@@ -1,21 +1,16 @@
-// 批量全局注册组件
-// Globally register all base components for convenience, because they
-// will be used very frequently. Components are registered using the
-// PascalCased version of their file name.
-
+/**
+ * 批量全局注册组件
+ * https://webpack.js.org/guides/dependency-management/#require-context
+ */
 import Vue from 'vue';
 
-// https://webpack.js.org/guides/dependency-management/#require-context
 const requireComponent = require.context(
-  // Look for files in the current directory
   './components',
   // Do not look in subdirectories
   false,
-  // Only include "_base-" prefixed .vue files
   /\w+\.(vue|js)$/,
 );
 
-// For each matching file name...
 const successCmp = [];
 requireComponent.keys().forEach(fileName => {
   // Get the component config
