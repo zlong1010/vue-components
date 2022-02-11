@@ -25,19 +25,21 @@ export default {
 }
 .page-wrap {
   padding-top: 40px;
-  display: flex;
+  position: relative;
 }
 #nav {
-  flex: 0 0 auto;
+  width: 20%;
   height: calc(100vh - 40px);
   min-width: 10rem;
+  position: fixed;
   overflow: auto;
   border-right: 1px solid #d3d3d3;
+  background-color: aqua;
   > * {
     display: block;
   }
 }
 .page-content {
-  margin-left: 24px;
+  margin-left: 27%;
 }
 </style>

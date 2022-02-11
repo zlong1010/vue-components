@@ -1,15 +1,11 @@
 <template>
   <div class="example">
-    <github-corner />
     <introduction
       description="Maintaining item component inner state is a trouble here, recommend to use only props data."
     />
-
     <div class="example-content">
       <tab v-on:tab-change="onTabChange" />
-
       <div class="selects" v-show="isShowView">{{ selectNames }}</div>
-
       <div v-show="isShowView">
         <virtual-list class="list-keep scroll-touch" :data-key="'id'" :data-sources="items" :estimate-size="60">
           <template v-slot:item="{ source }">
@@ -17,7 +13,6 @@
           </template>
         </virtual-list>
       </div>
-
       <codeblock v-show="!isShowView" />
     </div>
   </div>

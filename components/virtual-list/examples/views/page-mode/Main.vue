@@ -1,10 +1,8 @@
 <template>
   <div class="example">
-    <github-corner />
     <introduction
       description="In <code>page-mode</code> virtual list using global document to scroll through the list."
     />
-
     <div class="example-content">
       <div>
         <virtual-list

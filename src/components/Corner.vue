@@ -1,44 +1,43 @@
 <template>
-  <a v-if="!isMobile" :href="url" class="github-corner" aria-label="View source on GitHub">github</a>
+  <a v-if="!isMobile" :href="url" class="github-corner" target="_blank" rel="noopener noreferrer">github</a>
 </template>
 
 <script>
-const getCodeUrl = () => {
-  const hashValue = (location.hash || '').substr(2);
-  if (hashValue) {
-    return `https://github.com/tangbc/vue-virtual-scroll-list/tree/master/example/src/views/${hashValue}/Main.vue`;
-  } else {
-    return `https://github.com/tangbc/vue-virtual-scroll-list`;
-  }
-};
-
+const prefix = 'https://github.com/zlong1010/vue-components/tree/master/';
 
 export default {
   name: 'github-corner',
   data() {
     return {
-      url: '',
+      url: prefix,
       size: 80,
       isMobile: window.isMobile,
     };
   },
-  mounted() {
-    this.url = getCodeUrl();
+  watch: {
+    $route(nRoute) {
+      console.debug({ nRoute: nRoute.path });
+      let _prefix = prefix;
+      const hashValue = nRoute.path;
+      // 指令
+      if (/^v-/.test(hashValue)) {
+        _prefix += 'directives/';
+      } else if (hashValue !== '/') {
+        _prefix += 'components/';
+      }
+      this.url = _prefix + hashValue;
+    },
   },
 };
 </script>
 
 <style lang="less" scoped>
 .github-corner {
-  z-index: 3;
   text-transform: capitalize;
   padding-left: 30px;
   width: 90px;
   height: 40px;
   line-height: 40px;
-  position: fixed;
-  right: 0;
-  top: 0;
   color: #fff;
   font-size: 14px;
   font-weight: bold;

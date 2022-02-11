@@ -1,15 +1,12 @@
 <template>
   <div class="example">
-    <github-corner />
     <introduction
       description="The size of each item is dynamic,
       you don't have to care about size, it will calculate automatic,
       but you have to make sure that there's an unique id for every array data."
     />
-
     <div class="example-content">
       <tab v-on:tab-change="onTabChange" />
-
       <div v-show="isShowView">
         <virtual-list class="list-dynamic scroll-touch" :data-key="'id'" :data-sources="items" :estimate-size="80">
           <template v-slot:item="{ source }">
@@ -17,7 +14,6 @@
           </template>
         </virtual-list>
       </div>
-
       <codeblock v-show="!isShowView" />
     </div>
   </div>

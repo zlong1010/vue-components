@@ -1,7 +1,8 @@
 <template>
   <header class="header">
     <router-link to="/">主页</router-link>
-    <a href="https://github.com/zlong1010/vue-components" target="_blank" rel="noopener noreferrer" class="repo-link">
+    <github-corner />
+    <!-- <a href="https://github.com/zlong1010/vue-components" target="_blank" rel="noopener noreferrer" class="repo-link">
       <span>GitHub</span>
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -22,7 +23,7 @@
           points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"
         ></polygon>
       </svg>
-    </a>
+    </a> -->
   </header>
 </template>
 
@@ -40,6 +41,8 @@ export default {};
   display: flex;
   align-items: center;
   border-bottom: 1px solid #d3d3d3;
+  z-index: 1000;
+  background-color: antiquewhite;
   > * {
     margin-right: 8px;
     cursor: pointer;

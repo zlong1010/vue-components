@@ -1,9 +1,6 @@
 <template>
   <div class="example">
-    <github-corner />
-
     <tool-bar />
-
     <div class="main">
       <div class="list-container">
         <virtual-list

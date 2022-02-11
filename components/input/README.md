@@ -1,4 +1,4 @@
-## InputV2
+## Input
 ### 参数
 
 - 原生 input标签 的属性不变，type maxlength 等其他属性用法不变；

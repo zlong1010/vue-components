@@ -1,11 +1,8 @@
 <template>
   <div class="example">
-    <github-corner />
     <introduction description="The size of each item is equal." />
-
     <div class="example-content">
       <tab v-on:tab-change="onTabChange" />
-
       <div v-show="isShowView">
         <virtual-list class="list scroll-touch"
           data-key="id"
@@ -17,7 +14,6 @@
           </template>
         </virtual-list>
       </div>
-
       <codeblock v-show="!isShowView" />
     </div>
   </div>

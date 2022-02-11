@@ -104,8 +104,6 @@ export default {
 }
 
 .example {
-  margin: 0 auto;
-  padding: 0 2em;
   width: 776px;
   padding-top: 3em;
   @media (max-width: 640px) {

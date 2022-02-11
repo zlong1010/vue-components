@@ -1,15 +1,11 @@
 <template>
   <div class="example">
-    <github-corner />
     <introduction
       description="Use <code>v-on:tobottom</code> to listen scroll reach bottom, add a footer slot as loading, then append next parts data into <code>data-sources</code> array."
     />
-
     <div class="example-content">
       <tab v-on:tab-change="onTabChange" />
-
       <div class="result">Items count: {{ items.length }}.</div>
-
       <div v-show="isShowView">
         <virtual-list
           class="list-infinite scroll-touch"
@@ -26,7 +22,6 @@
           <div slot="footer" class="loader"></div>
         </virtual-list>
       </div>
-
       <codeblock v-show="!isShowView" />
     </div>
   </div>
