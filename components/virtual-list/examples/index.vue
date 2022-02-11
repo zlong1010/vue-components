@@ -3,6 +3,7 @@
     <div class="tab-list" @click="toggleAct">
       <span data-k="fix-size">固定尺寸</span>
       <span data-k="dynamic-size">动态尺寸</span>
+      <span data-k="inline-block">多列布局</span>
       <span data-k="infinite-loading">无限下拉</span>
       <span data-k="keep-state">维护状态</span>
       <span data-k="page-mode">页面模式</span>
@@ -48,7 +49,7 @@ export default {
   components: cmps,
   data() {
     return {
-      who: 'fix-size',
+      who: 'inline-block',
     };
   },
   methods: {

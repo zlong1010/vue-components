@@ -16,7 +16,6 @@ export default {
   },
   watch: {
     $route(nRoute) {
-      console.debug({ nRoute: nRoute.path });
       let _prefix = prefix;
       const hashValue = nRoute.path;
       // 指令
