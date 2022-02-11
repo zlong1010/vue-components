@@ -34,8 +34,8 @@ export default {};
 <style lang="less" scoped>
 .header {
   position: fixed;
-  width: 80%;
-  max-width: 1200px;
+  width: 100%;
+  max-width: 1440px;
   margin: 0 auto;
   height: 40px;
   display: flex;

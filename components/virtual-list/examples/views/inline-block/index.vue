@@ -6,7 +6,7 @@
           class="inline-block-list scroll-touch"
           data-key="id"
           :data-sources="items"
-          :keeps="50"
+          :keeps="70"
           :page-mode="false"
           v-on:totop="totop"
           v-on:tobottom="tobottom"
@@ -26,7 +26,7 @@ import { Random } from '../../common/mock';
 import getSentences from '../../common/sentences';
 import genUniqueId from '../../common/gen-unique-id';
 
-const TOTAL_COUNT = 400;
+const TOTAL_COUNT = 1000;
 
 const DataItems = [];
 let count = TOTAL_COUNT;
@@ -67,13 +67,13 @@ export default {
   height: 80vh;
   border-color: dimgray;
   .item-wrap {
-    // display: inline-block;
+    display: inline-block;
     height: 80px;
-    // width: 200px;
+    width: 189px;
     border-right: 1px solid seagreen;
     border-bottom: 1px solid seagreen;
     > * {
-      // display: inline-block;
+      display: inline-block;
       width: 100%;
       height: 100%;
     }

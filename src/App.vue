@@ -28,10 +28,10 @@ export default {
   position: relative;
 }
 #nav {
-  width: 20%;
-  height: calc(100vh - 40px);
-  min-width: 10rem;
+  width: 200px;
   position: fixed;
+  top: 40px;
+  bottom: 0;
   overflow: auto;
   border-right: 1px solid #d3d3d3;
   background-color: aqua;
@@ -40,6 +40,6 @@ export default {
   }
 }
 .page-content {
-  margin-left: 27%;
+  margin-left: 230px;
 }
 </style>

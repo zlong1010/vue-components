@@ -225,7 +225,7 @@ export default {
           slotFooterSize: this.slotFooterSize,
           keeps: this.keeps,
           estimateSize: this.estimateSize,
-          // buffer: 1, // 缓存行数
+          buffer: 5, // 缓存行数
           uniqueIds: this.getUniqueIdFromDataSources(),
         },
         this.onRangeChanged,

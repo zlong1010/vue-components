@@ -12,6 +12,7 @@ export const VirtualProps = {
     required: true,
   },
   scrollArea: [String, Object],
+  // 页面维持的dom数
   keeps: {
     type: Number,
     default: 30,
