@@ -28,7 +28,7 @@ import getSentences from '../../common/sentences';
 import genUniqueId from '../../common/gen-unique-id';
 import { TAB_TYPE, DEFAULT_TAB } from '../../common/const';
 
-const TOTAL_COUNT = 10000;
+const TOTAL_COUNT = 500;
 
 const DataItems = [];
 let count = TOTAL_COUNT;

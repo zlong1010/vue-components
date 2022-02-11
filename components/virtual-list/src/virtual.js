@@ -47,17 +47,17 @@ export default class Virtual {
       this.checkRange(0, param.keeps - 1);
     }
 
-    const fn = () => {
-      // DebugBox.updateText({
-      //   colNum: this.colNum,
-      //   buffer: this.param.buffer,
-      //   keeps: this.param.keeps,
-      //   N: this.param.uniqueIds.length,
-      //   size: this.sizes,
-      // });
-      requestAnimationFrame(fn);
-    };
-    requestAnimationFrame(fn);
+    // const fn = () => {
+    //   DebugBox.updateText({
+    //     colNum: this.colNum,
+    //     buffer: this.param.buffer,
+    //     keeps: this.param.keeps,
+    //     N: this.param.uniqueIds.length,
+    //     size: this.sizes,
+    //   });
+    //   requestAnimationFrame(fn);
+    // };
+    // requestAnimationFrame(fn);
   }
 
   destroy() {
@@ -125,6 +125,8 @@ export default class Virtual {
     this.firstRangeTotalSize = this.sizes.slice(_range.start, _range.end + 1).reduce((acc, val) => acc + val, 0);
     this.firstRangeAverageSize = Math.round((this.firstRangeTotalSize * colNum) / (_range.end - _range.start + 1));
     this.fillSizeByEstiSize();
+    // 更新pading
+    this.handleDataSourcesChange();
   }
 
   fillSizeByEstiSize() {
