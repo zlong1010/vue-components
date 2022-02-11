@@ -1,4 +1,3 @@
-import Vue from 'vue';
 import Virtual from './virtual';
 import { Item, Slot } from './item';
 import { VirtualProps } from './props';
@@ -30,7 +29,6 @@ export function dispatch(context, componentName, eventName, ...rest) {
   }
 }
 
-// const VirtualList = Vue.component('virtual-list', {
 export default {
   props: VirtualProps,
 
@@ -476,6 +474,3 @@ export default {
     );
   },
 };
-// });
-
-// export default VirtualList;
