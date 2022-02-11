@@ -35,10 +35,10 @@ export const VirtualProps = {
     type: Number,
     default: 0,
   },
-  direction: {
-    type: String,
-    default: 'vertical', // the other value is horizontal
-  },
+  // direction: {
+  //   type: String,
+  //   default: 'vertical', // the other value is horizontal
+  // },
   start: {
     type: Number,
     default: 0,

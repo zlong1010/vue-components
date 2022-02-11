@@ -64,7 +64,8 @@ export default {
   },
 
   created() {
-    this.isHorizontal = this.direction === 'horizontal';
+    // this.isHorizontal = this.direction === 'horizontal';
+    this.isHorizontal = false; // 不支持水平滚动
     this.directionKey = this.isHorizontal ? 'scrollLeft' : 'scrollTop';
 
     this.installVirtual();
