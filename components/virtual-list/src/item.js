@@ -7,11 +7,6 @@ import Vue from 'vue';
 import { ItemProps, SlotProps } from './props';
 
 const Wrapper = {
-  // data() {
-  //   return {
-  //     hasInitial: false,
-  //   };
-  // },
   created() {
     this.shapeKey = this.horizontal ? 'offsetWidth' : 'offsetHeight';
   },
@@ -60,7 +55,6 @@ const Wrapper = {
         offsetTop,
         offsetHeight,
       });
-      // this.hasInitial = true;
     },
   },
 };
@@ -77,40 +71,6 @@ export const Item = Vue.component('virtual-list-item', {
       uniqueKey,
     };
     return h(tag, this.$scopedSlots.default(itemProps));
-    /* const props = {
-      ...extraProps,
-      source,
-      index,
-    };
-    const props2 = {
-      key: uniqueKey,
-      attrs: {
-        role: 'listitem',
-      },
-    };
-    // old code
-    if (slotComponent) {
-      return h('div', slotComponent({ item: source, index, scope: { ...props, ...props2 } }));
-    }
-    return h(component, { props: { ...props, ...props2 }, scopedSlots });
-    // old code
-    return h(
-      tag,
-      {
-        key: uniqueKey,
-        attrs: {
-          role: 'listitem',
-        },
-      },
-      [
-        slotComponent
-          ? h('div', slotComponent({ item: source, index, scope: props }))
-          : h(component, {
-            props,
-            scopedSlots,
-          }),
-      ],
-    ); */
   },
 });
 

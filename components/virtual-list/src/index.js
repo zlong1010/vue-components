@@ -242,8 +242,7 @@ export default {
       );
     },
 
-    // event called when each item mounted or size changed
-    onItemResized_back(id, index, { offsetLeft, offsetTop, offsetHeight }) {
+    /* onItemResized_back(id, index, { offsetLeft, offsetTop, offsetHeight }) {
       const { preItemSize } = this.$data;
       if (preItemSize.left === null) {
         this.preItemSize.left = offsetLeft;
@@ -275,7 +274,7 @@ export default {
       //   this.virtual.saveSize(id, offsetHeight);
       //   this.stopCalcuColNum = true;
       // }
-    },
+    }, */
 
     onItemResized(id, { index, offsetLeft, offsetTop, offsetHeight }) {
       const rowHeight = offsetHeight + this.$props.lineInterval;
@@ -292,8 +291,7 @@ export default {
       }
       if (preItemSize.left === offsetLeft && preItemSize.id && id !== preItemSize.id) {
         // 每行的高度, 包括margin
-        // const preOffsetHeight = offsetTop - preItemSize.top;
-        // console.log(`\npreInd:${preItemSize.index}  index:${index} %ch: ${preItemSize.height}`, 'color:red');
+        console.log(`\npreInd:${preItemSize.index}  index:${index} %ch: ${preItemSize.height}`, 'color:red');
         if (!this.stopCalcuColNum) {
           const newKeeps = Math.ceil(this.keeps / this.colNum) * this.colNum;
           if (newKeeps !== this.keeps) {

@@ -1,6 +1,6 @@
-// import DebugBox from './debug';
+import DebugBox from './debug';
 
-const Log = false;
+const Log = true;
 const DIRECTION_TYPE = {
   FRONT: 'FRONT', // scroll up or left
   BEHIND: 'BEHIND', // scroll down or right
@@ -47,17 +47,17 @@ export default class Virtual {
       this.checkRange(0, param.keeps - 1);
     }
 
-    // const fn = () => {
-    //   DebugBox.updateText({
-    //     colNum: this.colNum,
-    //     buffer: this.param.buffer,
-    //     keeps: this.param.keeps,
-    //     N: this.param.uniqueIds.length,
-    //     size: this.sizes,
-    //   });
-    //   requestAnimationFrame(fn);
-    // };
-    // requestAnimationFrame(fn);
+    const fn = () => {
+      DebugBox.updateText({
+        colNum: this.colNum,
+        buffer: this.param.buffer,
+        keeps: this.param.keeps,
+        N: this.param.uniqueIds.length,
+        size: this.sizes,
+      });
+      requestAnimationFrame(fn);
+    };
+    Log && requestAnimationFrame(fn);
   }
 
   destroy() {
@@ -205,8 +205,9 @@ export default class Virtual {
   }
 
   // return the pass overs according to current scroll offset
+  // 参数: direction
   // 滚动了多少行
-  getScrollOvers(direction) {
+  getScrollOvers() {
     // offset: scrollTop
     const offset = this.offset - this.param.slotHeaderSize;
     // 第一行高度
@@ -250,33 +251,8 @@ export default class Virtual {
     }
     this.rowOver = low > 0 ? --low : 0;
     return this.rowOver;
-    // let rowOver = 0;
-    // const _range = this.range;
-    // const _totalSizesHeight = this.sizes.slice(0, _range.end + 1).reduce((acc, cur) => acc + cur, 0);
-    // // 特殊情况，滚动太快，sizes中还没有存入实际的dom高度
-    // if (_totalSizesHeight < offset) {
-    //   console.error('\n_totalSizesHeight < offset');
-    //   return _totalSizesHeight - offset;
-    // }
-    // let itemsHeight = this.sizes.slice(0, _range.start).reduce((acc, cur) => acc + cur, 0);
-    // for (let i = _range.start; i < _range.end; i++) {
-    //   const h = this.sizes[i];
-    //   if (itemsHeight === offset) {
-    //     rowOver = i / this.colNum;
-    //     break;
-    //   } else if (itemsHeight > offset) {
-    //     rowOver = Math.floor((i - 1) / this.colNum);
-    //     break;
-    //   } else {
-    //     itemsHeight += h;
-    //   }
-    // }
-    // this.rowOver = rowOver;
-    // return rowOver;
   }
 
-  // return a scroll offset from given index, can efficiency be improved more here?
-  // although the call frequency is very high, its only a superposition of numbers
   getIndexOffset(givenIndex) {
     if (!givenIndex) {
       return 0;
@@ -285,14 +261,6 @@ export default class Virtual {
     this.lastCalcIndex = Math.max(this.lastCalcIndex, givenIndex - 1);
     this.lastCalcIndex = Math.min(this.lastCalcIndex, this.param.uniqueIds.length - 1);
     return this.sizes.slice(0, givenIndex).reduce((acc, cur) => acc + cur);
-    // let offset = 0;
-    // let indexSize = 0;
-    // for (let index = this.colNum - 1; index < givenIndex;) {
-    //   indexSize = this.sizes[index];
-    //   offset += (typeof indexSize === 'number' ? indexSize : this.getEstimateSize());
-    //   index += this.colNum;
-    // }
-    // return offset;
   }
 
   // is fixed size type
@@ -300,8 +268,6 @@ export default class Virtual {
     return this.calcType === CALC_TYPE.FIXED;
   }
 
-  // in some conditions range is broke, we need correct it
-  // and then decide whether need update to next range
   checkRange(start, end) {
     const { keeps } = this.param;
     const total = this.param.uniqueIds.length;
