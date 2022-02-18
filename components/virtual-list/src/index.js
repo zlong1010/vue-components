@@ -36,10 +36,7 @@ export default {
     return {
       range: null,
       scrollContainer: null, // 滚动区域
-      preItemSize: { id: '', index: -1, left: null, top: null, height: 0 },
       colNum: 0, // 一行的数量
-      stopCalcuColNum: false,
-      rendedItemCont: 0,
     };
   },
 
@@ -241,41 +238,7 @@ export default {
       );
     },
 
-    /* onItemResized_back(id, index, { offsetLeft, offsetTop, offsetHeight }) {
-      const { preItemSize } = this.$data;
-      if (preItemSize.left === null) {
-        this.preItemSize.left = offsetLeft;
-      }
-      if (preItemSize.left === offsetLeft && preItemSize.id && id !== preItemSize.id) {
-        // 每行的高度, 包括margin
-        const overRow = Math.ceil((index + 1) / this.colNum) - Math.ceil((preItemSize.index + 1) / this.colNum);
-        if (index > preItemSize.index && overRow < 2) {
-          const preOffsetHeight = offsetTop - preItemSize.top;
-          // Log && console.log(`\npreInd:${preItemSize.index}  index:${index} %ch: ${preOffsetHeight}`, 'color:red');
-          // 每行最后一项的size
-          preOffsetHeight && this.virtual.saveSize(preItemSize.index, preOffsetHeight);
-          this.stopCalcuColNum = true;
-          const newKeeps = Math.ceil(this.keeps / this.colNum) * this.colNum;
-          if (newKeeps !== this.keeps) {
-            this.virtual.updateParam('keeps', newKeeps);
-          }
-          // this.$emit('resized', preItemSize.id, preOffsetHeight);
-        } else if (index < preItemSize.index) {
-          console.log('\n**********向上**********\n');
-        } else {
-          console.error('\nonItemResized error!');
-        }
-      } else if (!this.stopCalcuColNum && id !== preItemSize.id) {
-        this.colNum++;
-      }
-      this.preItemSize = { index, id, left: this.preItemSize.left, top: offsetTop, height: offsetHeight };
-      // if (index === this.range.end) {
-      //   this.virtual.saveSize(id, offsetHeight);
-      //   this.stopCalcuColNum = true;
-      // }
-    }, */
-
-    onItemResized(id, { index, offsetLeft, offsetTop, offsetHeight }) {
+    /* onItemResized(id, { index, offsetLeft, offsetTop, offsetHeight }) {
       const rowHeight = offsetHeight + this.$props.lineInterval;
       this.virtual.saveSize(index, rowHeight);
       const { preItemSize } = this.$data;
@@ -307,11 +270,43 @@ export default {
         this.colNum++;
       }
       this.preItemSize = { index, id, left: this.preItemSize.left, top: offsetTop, height: rowHeight };
+    }, */
+
+    onItemResized(id, { index, offsetHeight }) {
+      const rowHeight = offsetHeight + this.$props.lineInterval;
+      if (this.colNum) {
+        this.virtual.saveSize(index, rowHeight);
+        return;
+      }
+      // 计算每行数量
+      !this.rendItemInd && (this.rendItemInd = []);
+      !this.rendItemInd.includes(index) && this.rendItemInd.push(index);
+      if (this.rendItemInd.length < this.keeps) {
+        return;
+      }
+      // 首次所有item渲染完成
+      const itemDoms = this.scrollContainer.querySelectorAll('.virtual-list-item[role="listotem"]');
+      const heightVals = Array.prototype.map.call(itemDoms, item => item.offsetHeight);
+      const domNum = heightVals.length;
+      if (domNum < 2) {
+        return this.colNum = domNum;
+      }
+
+      const containerLeft = itemDoms[0].offsetLeft;
+      for (let i=1; i<domNum; i++) {
+        if (itemDoms[i].offsetLeft === containerLeft) {
+          this.colNum = i;
+          break;
+        }
+      }
+      heightVals.forEach((h, idx) => this.virtual.saveSize(idx, h));
+
+      const firstRangeAverageSize = this.virtual.rendFinish(this.colNum);
+      this.emitKeeps(firstRangeAverageSize, this.colNum);
     },
 
     // 计算合适的keeps
     emitKeeps(averHeight, colNum) {
-      debugger;
       const containerHeight = this.scrollContainer.clientHeight;
       const showItemTotal = 2 * Math.ceil(colNum * containerHeight / averHeight);
       console.debug({ showItemTotal });

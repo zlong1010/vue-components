@@ -124,7 +124,6 @@ export default class Virtual {
     const arr = this.sizes.slice(_range.start, _range.end+1).filter((_,idx) => !((idx+1)%colNum));
     const totalHeight = arr.reduce((acc, val) => acc + val, 0);
     this.firstRangeAverageSize = Math.round((totalHeight * colNum) / (_range.end - _range.start + 1));
-    debugger;
     this.fillSizeByEstiSize();
     // 更新pading
     this.handleDataSourcesChange();
@@ -189,6 +188,7 @@ export default class Virtual {
       return;
     }
     const start = Math.max(overs - this.param.buffer, 0) * this.colNum;
+    console.debug({ overs, start });
     this.checkRange(start, this.getEndByStart(start));
   }
 
@@ -203,6 +203,7 @@ export default class Virtual {
     if (overs * this.colNum < this.range.start + this.param.buffer * this.colNum) {
       return;
     }
+    console.debug({ overs });
     this.checkRange(overs * this.colNum, this.getEndByStart(overs * this.colNum));
   }
 
@@ -262,8 +263,8 @@ export default class Virtual {
     // // remember last calculate index
     this.lastCalcIndex = Math.max(this.lastCalcIndex, givenIndex - 1);
     this.lastCalcIndex = Math.min(this.lastCalcIndex, this.param.uniqueIds.length - 1);
-    const arr = this.sizes.slice(0, givenIndex+1).filter((_,idx) => !(idx+1)%this.colNum);
-    return arr.reduce((acc, cur) => acc + cur);
+    const arr = this.sizes.slice(0, givenIndex).filter((_,idx) => !((idx+1)%this.colNum));
+    return arr.reduce((acc, cur) => acc + cur, 0);
   }
 
   // is fixed size type
