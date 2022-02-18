@@ -47,16 +47,11 @@ function insertHtmlAfterParent(el, params) {
     return;
   }
   // render
-  const Loading = Vue.extend(loading);
-  const instance = new Loading({
+  const instance = new Vue({
+    ...loading,
     name: 'LoadinWrap',
-    el: document.createElement('div'),
-    render(h) {
-      return h(loading, {
-        props: params,
-      });
-    },
-  });
+    propsData: params,
+  }).$mount();
   const styleObj = {};
   styleObj.position = params.page ? 'fixed' : 'absolute';
   instance.$el.style = cssObjToStr(styleObj);

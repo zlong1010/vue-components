@@ -50,7 +50,12 @@ export default {
       if (args.blank || args.event.ctrlKey || args.event.metaKey) {
         isNewTab = true;
       }
-      const newHref = this.$router.resolve(routeConfig).href;
+      let newHref = '';
+      if (typeof routeConfig === 'string' && /:?\/{2}\w+/.test(routeConfig)) {
+        newHref = routeConfig;
+      } else {
+        newHref = this.$router.resolve(routeConfig).href;
+      }
       if (isNewTab) {
         window.open(newHref, '_blank');
         return;

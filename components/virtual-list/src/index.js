@@ -11,7 +11,7 @@ const SLOT_TYPE = {
   FOOTER: 'tfoot',
 };
 
-const Log = false;
+const Log = true;
 
 export function dispatch(context, componentName, eventName, ...rest) {
   let parent = context.$parent || context.$root;
