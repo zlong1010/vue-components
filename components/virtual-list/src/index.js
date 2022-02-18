@@ -49,8 +49,8 @@ export default {
       this.virtual.handleDataSourcesChange();
     },
 
-    keeps(newValue) {
-      this.virtual.updateParam('keeps', newValue);
+    keeps(nVal) {
+      this.virtual.updateParam('keeps', nVal);
       this.virtual.handleSlotSizeChange();
     },
 
@@ -225,7 +225,6 @@ export default {
           slotFooterSize: this.slotFooterSize,
           keeps: this.keeps,
           estimateSize: this.estimateSize,
-          buffer: 5, // 缓存行数
           uniqueIds: this.getUniqueIdFromDataSources(),
         },
         this.onRangeChanged,
@@ -278,12 +277,14 @@ export default {
 
     onItemResized(id, { index, offsetLeft, offsetTop, offsetHeight }) {
       const rowHeight = offsetHeight + this.$props.lineInterval;
+      this.virtual.saveSize(index, rowHeight);
       const { preItemSize } = this.$data;
       // range item mounted
       id !== preItemSize.id && this.rendedItemCont++;
       const N = Math.min(this.dataSources.length, this.keeps);
       if (this.rendedItemCont === N) {
-        this.virtual.rendFinish(this.colNum);
+        const firstRangeAverageSize = this.virtual.rendFinish(this.colNum);
+        this.emitKeeps(firstRangeAverageSize, this.colNum);
       }
 
       if (preItemSize.left === null) {
@@ -291,7 +292,7 @@ export default {
       }
       if (preItemSize.left === offsetLeft && preItemSize.id && id !== preItemSize.id) {
         // 每行的高度, 包括margin
-        console.log(`\npreInd:${preItemSize.index}  index:${index} %ch: ${preItemSize.height}`, 'color:red');
+        // console.log(`\npreInd:${preItemSize.index}  index:${index} %ch: ${preItemSize.height}`, 'color:red');
         if (!this.stopCalcuColNum) {
           const newKeeps = Math.ceil(this.keeps / this.colNum) * this.colNum;
           if (newKeeps !== this.keeps) {
@@ -302,16 +303,25 @@ export default {
         this.virtual.saveSize(preItemSize.index, preItemSize.height);
         this.$emit('resized', preItemSize.id, preItemSize.height);
         this.stopCalcuColNum = true;
-        // const overRow = Math.ceil((index + 1) / this.colNum) - Math.ceil((preItemSize.index + 1) / this.colNum);
-        // if (index > preItemSize.index && overRow < 2) {
-        // }
       } else if (!this.stopCalcuColNum && id !== preItemSize.id) {
         this.colNum++;
       }
       this.preItemSize = { index, id, left: this.preItemSize.left, top: offsetTop, height: rowHeight };
     },
+
+    // 计算合适的keeps
+    emitKeeps(averHeight, colNum) {
+      debugger;
+      const containerHeight = this.scrollContainer.clientHeight;
+      const showItemTotal = 2 * Math.ceil(colNum * containerHeight / averHeight);
+      console.debug({ showItemTotal });
+      if (showItemTotal !== this.$props.keeps) {
+        this.$emit('update:keeps', showItemTotal);
+      }
+    },
+
     // event called when slot mounted or size changed
-    onSlotResized(type, size, hasInit) {
+    onSlotResized(type, size) {
       if (type === SLOT_TYPE.HEADER) {
         this.virtual.updateParam('slotHeaderSize', size.offsetHeight);
       } else if (type === SLOT_TYPE.FOOTER) {

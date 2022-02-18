@@ -6,7 +6,7 @@
           class="inline-block-list scroll-touch"
           data-key="id"
           :data-sources="items"
-          :keeps="70"
+          :keeps.sync="keeps"
           :page-mode="false"
           v-on:totop="totop"
           v-on:tobottom="tobottom"
@@ -45,6 +45,7 @@ export default {
   data() {
     return {
       items: DataItems,
+      keeps: 72,
     };
   },
   methods: {

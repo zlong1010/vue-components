@@ -29,7 +29,6 @@ export default class Virtual {
       N = param.uniqueIds.length;
     }
     this.sizes = Array(N).fill(0);
-    this.firstRangeTotalSize = 0;
     this.firstRangeAverageSize = 0;
     this.lastCalcIndex = 0;
     this.fixedSizeValue = 0;
@@ -122,11 +121,14 @@ export default class Virtual {
     // 更新缓存buffer
     this.param.buffer = Math.max(Math.round(this.param.keeps / (colNum * 3)), 1);
     // 设置平均值
-    this.firstRangeTotalSize = this.sizes.slice(_range.start, _range.end + 1).reduce((acc, val) => acc + val, 0);
-    this.firstRangeAverageSize = Math.round((this.firstRangeTotalSize * colNum) / (_range.end - _range.start + 1));
+    const arr = this.sizes.slice(_range.start, _range.end+1).filter((_,idx) => !((idx+1)%colNum));
+    const totalHeight = arr.reduce((acc, val) => acc + val, 0);
+    this.firstRangeAverageSize = Math.round((totalHeight * colNum) / (_range.end - _range.start + 1));
+    debugger;
     this.fillSizeByEstiSize();
     // 更新pading
     this.handleDataSourcesChange();
+    return this.firstRangeAverageSize;
   }
 
   fillSizeByEstiSize() {
@@ -260,7 +262,8 @@ export default class Virtual {
     // // remember last calculate index
     this.lastCalcIndex = Math.max(this.lastCalcIndex, givenIndex - 1);
     this.lastCalcIndex = Math.min(this.lastCalcIndex, this.param.uniqueIds.length - 1);
-    return this.sizes.slice(0, givenIndex).reduce((acc, cur) => acc + cur);
+    const arr = this.sizes.slice(0, givenIndex+1).filter((_,idx) => !(idx+1)%this.colNum);
+    return arr.reduce((acc, cur) => acc + cur);
   }
 
   // is fixed size type
@@ -269,18 +272,18 @@ export default class Virtual {
   }
 
   checkRange(start, end) {
-    const { keeps } = this.param;
+    const _keeps = this.param.keeps;
     const total = this.param.uniqueIds.length;
     end = Math.min(end, total);
     if (total === 0) {
       start = 0;
       end = 0;
-    } else if (total <= keeps) {
+    } else if (total <= _keeps) {
       start = 0;
       end = total - 1;
-    } else if (end - start < keeps - 1) {
-      end = Math.min(start + keeps - 1, total - 1);
-      // start = end - keeps + 1; old code
+    } else if (end - start < _keeps - 1) {
+      end = Math.min(start + _keeps - 1, total - 1);
+      // start = end - _keeps + 1; old code
     }
     if (this.range.start !== start || this.range.end !== end) {
       this.updateRange(start, end);
