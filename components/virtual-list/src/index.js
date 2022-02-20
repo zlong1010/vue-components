@@ -244,6 +244,7 @@ export default {
 
     onItemResized(id, { index, offsetHeight }) {
       const rowHeight = offsetHeight + this.$props.lineInterval;
+      this.$emit('resized', id, rowHeight);
       if (this.colNum) {
         this.virtual.saveSize(index, rowHeight);
         return;
@@ -251,7 +252,7 @@ export default {
       // 计算每行数量
       !this.rendItemInd && (this.rendItemInd = []);
       !this.rendItemInd.includes(index) && this.rendItemInd.push(index);
-      if (this.rendItemInd.length < this.keeps) {
+      if (this.rendItemInd.length < Math.min(this.keeps, this.dataSources.length)) {
         return;
       }
       // 首次所有item渲染完成
@@ -290,8 +291,6 @@ export default {
     // emit event in special position
     emitEvent(offset, clientSize, scrollSize, evt) {
       this.$emit('scroll', evt, this.virtual.getRange());
-      // console.debug('emitEvent:\n');
-      // console.debug(offset, clientSize, scrollSize);
       if (this.virtual.isFront() && !!this.dataSources.length && offset - this.topThreshold <= 0) {
         this.$emit('totop');
       } else if (this.virtual.isBehind() && offset + clientSize + this.bottomThreshold >= scrollSize) {
@@ -438,10 +437,13 @@ export default {
     },
     // return current scroll offset
     getOffset() {
+      let v = 0;
       if (this.pageMode) {
-        return document.documentElement[this.directionKey] || document.body[this.directionKey];
+        v = document.documentElement[this.directionKey] || document.body[this.directionKey];
+        return Math.ceil(Math.abs(v));
       }
-      return Math.ceil(this.scrollContainer[this.directionKey]);
+      v = this.scrollContainer[this.directionKey];
+      return Math.ceil(Math.abs(v));
     },
 
     // return client viewport size
@@ -449,9 +451,10 @@ export default {
       if (this.containerClientSize) return this.containerClientSize;
       const key = this.isHorizontal ? 'clientWidth' : 'clientHeight';
       if (this.scrollContainer === document) {
-        this.containerClientSize = document.documentElement[key] || document.body[key];
+        this.containerClientSize = Math.ceil(document.documentElement[key] || document.body[key]);
+      } else {
+        this.containerClientSize = Math.ceil(this.scrollContainer[key]);
       }
-      this.containerClientSize = Math.ceil(this.containerClientSize);
       return this.containerClientSize;
     },
 
@@ -460,9 +463,10 @@ export default {
       // if (this.containerScrollSize) return this.containerScrollSize;
       const key = this.isHorizontal ? 'scrollWidth' : 'scrollHeight';
       if (this.scrollContainer === document) {
-        this.containerScrollSize = document.documentElement[key] || document.body[key];
+        this.containerScrollSize = Math.ceil(document.documentElement[key] || document.body[key]);
+      } else {
+        this.containerScrollSize = Math.ceil(this.scrollContainer[key]);
       }
-      this.containerScrollSize = Math.ceil(this.containerScrollSize);
       return this.containerScrollSize;
     },
     

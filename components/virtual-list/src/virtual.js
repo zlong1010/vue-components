@@ -1,6 +1,7 @@
 import DebugBox from './debug';
 
 const Log = true;
+
 const DIRECTION_TYPE = {
   FRONT: 'FRONT', // scroll up or left
   BEHIND: 'BEHIND', // scroll down or right
@@ -207,8 +208,7 @@ export default class Virtual {
     this.callUpdate(this.getRange());
   }
 
-  // return total front offset
-  // BUG 整数
+  // total front offset
   getPadFront() {
     if (this.isFixedType()) {
       return this.fixedSizeValue * (this.range.start / this.colNum);
