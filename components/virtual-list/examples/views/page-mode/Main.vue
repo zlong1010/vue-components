@@ -10,6 +10,7 @@
           ref="vsl"
           :data-key="'id'"
           :data-sources="items"
+          :keeps.sync="keeps"
           :estimate-size="135"
           :page-mode="true"
           v-on:totop="totop"
@@ -58,7 +59,7 @@ export default {
   data() {
     return {
       items: DataItems,
-      itemComponent: Item,
+      keeps: 20,
     };
   },
 

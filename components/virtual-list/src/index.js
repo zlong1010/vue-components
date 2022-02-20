@@ -198,7 +198,8 @@ export default {
         const clientSize = this.getClientSize();
         const scrollSize = this.getScrollSize();
         // iOS scroll-spring-back behavior will make direction mistake
-        if (offset < 0 || offset + clientSize > scrollSize + 1 || !scrollSize) {
+        // offset < 0 || offset + clientSize > scrollSize + 1 || !scrollSize
+        if (offset < 0 || !scrollSize) {
           return;
         }
         // 更新 range 并调用 onRangeChanged
@@ -289,8 +290,8 @@ export default {
     // emit event in special position
     emitEvent(offset, clientSize, scrollSize, evt) {
       this.$emit('scroll', evt, this.virtual.getRange());
-      console.debug('emitEvent:\n');
-      console.debug(offset, clientSize + this.bottomThreshold, scrollSize);
+      // console.debug('emitEvent:\n');
+      // console.debug(offset, clientSize, scrollSize);
       if (this.virtual.isFront() && !!this.dataSources.length && offset - this.topThreshold <= 0) {
         this.$emit('totop');
       } else if (this.virtual.isBehind() && offset + clientSize + this.bottomThreshold >= scrollSize) {
@@ -300,7 +301,7 @@ export default {
 
     // 计算合适的keeps
     emitKeeps(averHeight, colNum) {
-      const containerHeight = this.scrollContainer.clientHeight;
+      const containerHeight = this.getClientSize();
       const showItemTotal = 2 * Math.ceil(colNum * containerHeight / averHeight);
       console.debug({ showItemTotal });
       if (showItemTotal !== this.$props.keeps) {
@@ -450,18 +451,18 @@ export default {
       if (this.scrollContainer === document) {
         this.containerClientSize = document.documentElement[key] || document.body[key];
       }
-      this.containerClientSize = Math.ceil(this.scrollContainer[key]);
+      this.containerClientSize = Math.ceil(this.containerClientSize);
       return this.containerClientSize;
     },
 
     // return all scroll size
     getScrollSize() {
-      if (this.containerScrollSize) return this.containerScrollSize;
+      // if (this.containerScrollSize) return this.containerScrollSize;
       const key = this.isHorizontal ? 'scrollWidth' : 'scrollHeight';
       if (this.scrollContainer === document) {
         this.containerScrollSize = document.documentElement[key] || document.body[key];
       }
-      this.containerScrollSize = Math.ceil(this.scrollContainer[key]);
+      this.containerScrollSize = Math.ceil(this.containerScrollSize);
       return this.containerScrollSize;
     },
     
