@@ -1,6 +1,6 @@
-import DebugBox from './debug';
+// import DebugBox from './debug';
 
-const Log = true;
+const Log = false;
 
 const DIRECTION_TYPE = {
   FRONT: 'FRONT', // scroll up or left
@@ -46,18 +46,18 @@ export default class Virtual {
       this.checkRange(0, param.keeps - 1);
     }
 
-    const fn = () => {
-      DebugBox.updateText({
-        colNum: this.colNum,
-        buffer: this.param.buffer,
-        keeps: this.param.keeps,
-        N: this.param.uniqueIds.length,
-        rowOver: this.rowOver,
-        size: this.sizes,
-      });
-      requestAnimationFrame(fn);
-    };
-    Log && requestAnimationFrame(fn);
+    // const fn = () => {
+    //   DebugBox.updateText({
+    //     colNum: this.colNum,
+    //     buffer: this.param.buffer,
+    //     keeps: this.param.keeps,
+    //     N: this.param.uniqueIds.length,
+    //     rowOver: this.rowOver,
+    //     size: this.sizes,
+    //   });
+    //   requestAnimationFrame(fn);
+    // };
+    // Log && requestAnimationFrame(fn);
   }
 
   destroy() {
