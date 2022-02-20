@@ -40,6 +40,7 @@ export default {
   },
   watch: {
     'dataSources.length': function() {
+      console.debug('watch dataSources');
       this.virtual.updateParam('uniqueIds', this.getUniqueIdFromDataSources());
       this.virtual.handleDataSourcesChange();
     },
@@ -200,6 +201,7 @@ export default {
         if (offset < 0 || offset + clientSize > scrollSize + 1 || !scrollSize) {
           return;
         }
+        // 更新 range 并调用 onRangeChanged
         this.virtual.handleScroll(offset);
         this.emitEvent(offset, clientSize, scrollSize, evt);
       });
@@ -287,6 +289,8 @@ export default {
     // emit event in special position
     emitEvent(offset, clientSize, scrollSize, evt) {
       this.$emit('scroll', evt, this.virtual.getRange());
+      console.debug('emitEvent:\n');
+      console.debug(offset, clientSize + this.bottomThreshold, scrollSize);
       if (this.virtual.isFront() && !!this.dataSources.length && offset - this.topThreshold <= 0) {
         this.$emit('totop');
       } else if (this.virtual.isBehind() && offset + clientSize + this.bottomThreshold >= scrollSize) {

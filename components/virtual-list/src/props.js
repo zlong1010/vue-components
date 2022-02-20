@@ -15,7 +15,7 @@ export const VirtualProps = {
   // 页面维持的dom数
   keeps: {
     type: Number,
-    default: 10,
+    default: 12,
   },
   estimateSize: {
     type: Number,

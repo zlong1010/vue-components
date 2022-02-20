@@ -49,7 +49,7 @@ export default {
   components: cmps,
   data() {
     return {
-      who: 'inline-block',
+      who: 'fix-size',
     };
   },
   methods: {

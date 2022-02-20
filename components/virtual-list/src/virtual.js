@@ -51,6 +51,7 @@ export default class Virtual {
         buffer: this.param.buffer,
         keeps: this.param.keeps,
         N: this.param.uniqueIds.length,
+        rowOver: this.rowOver,
         size: this.sizes,
       });
       requestAnimationFrame(fn);
@@ -67,9 +68,9 @@ export default class Virtual {
   handleDataSourcesChange() {
     let { start } = this.range;
 
-    if (this.direction === DIRECTION_TYPE.FRONT) {
+    if (this.isFront()) {
       start -= LEADING_BUFFER;
-    } else if (this.direction === DIRECTION_TYPE.BEHIND) {
+    } else if (this.isBehind()) {
       start += LEADING_BUFFER;
     }
 
@@ -89,9 +90,9 @@ export default class Virtual {
     if (!this.param) {
       return;
     }
-    if (this.direction === DIRECTION_TYPE.FRONT) {
+    if (this.isFront()) {
       this.handleFront();
-    } else if (this.direction === DIRECTION_TYPE.BEHIND) {
+    } else if (this.isBehind()) {
       // 向下滚动
       this.handleBehind();
     }
@@ -121,7 +122,6 @@ export default class Virtual {
     if (overs * this.colNum < this.range.start + this.param.buffer * this.colNum) {
       return;
     }
-    console.debug({ overs });
     this.checkRange(overs * this.colNum, this.getEndByStart(overs * this.colNum));
   }
   /**
@@ -171,6 +171,7 @@ export default class Virtual {
         high = middle - 1;
       }
     }
+    // 1.8行设置为1行
     this.rowOver = low > 0 ? --low : 0;
     return this.rowOver;
   }
@@ -331,6 +332,14 @@ export default class Virtual {
       this.calcType = CALC_TYPE.DYNAMIC;
       this.fixedSizeValue = 0;
     }
+  }
+
+  isBehind() {
+    return this.direction === DIRECTION_TYPE.BEHIND;
+  }
+
+  isFront() {
+    return this.direction === DIRECTION_TYPE.FRONT;
   }
   // 总items数量
   getTotalNum() {
