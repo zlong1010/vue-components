@@ -23,7 +23,6 @@ export default class Virtual {
     this.param = param;
     this.callUpdate = callUpdate;
 
-    // const _sizes = Array(param.uniqueIds.length).fill(0);
     let N = 0;
     if (param) {
       N = param.uniqueIds.length;
@@ -63,89 +62,14 @@ export default class Virtual {
     this.init(null, null);
   }
 
-  // return current render range
-  getRange() {
-    const range = Object.create(null);
-    range.start = this.range.start;
-    range.end = this.range.end;
-    range.padFront = this.range.padFront;
-    range.padBehind = this.range.padBehind;
-    return range;
-  }
-
-  isBehind() {
-    return this.direction === DIRECTION_TYPE.BEHIND;
-  }
-
-  isFront() {
-    return this.direction === DIRECTION_TYPE.FRONT;
-  }
-
-  // return start index offset
-  getOffset(start) {
-    return (start < 1 ? 0 : this.getIndexOffset(start)) + this.param.slotHeaderSize;
-  }
-
-  updateParam(key, value) {
-    if (this.param && key in this.param) {
-      this.param[key] = value;
-      if (key === 'uniqueIds') {
-        const preNum = this.sizes.length;
-        if (value.length > preNum) {
-          this.sizes = this.sizes.concat(Array(value.length - preNum).fill(0));
-          this.fillSizeByEstiSize();
-        }
-      } else if (key === 'keeps') {
-        this.checkRange(this.range.start, this.range.end);
-      }
-    }
-  }
-
-  // save each size map by id
-  saveSize(idx, size) {
-    this.sizes[idx] = size;
-    if (this.calcType === CALC_TYPE.INIT) {
-      this.fixedSizeValue = size;
-      this.calcType = CALC_TYPE.FIXED;
-    } else if (this.calcType === CALC_TYPE.FIXED && this.fixedSizeValue !== size) {
-      this.calcType = CALC_TYPE.DYNAMIC;
-      this.fixedSizeValue = 0;
-    }
-  }
-
-  // 第一次 range item mounted
-  rendFinish(colNum) {
-    this.isRendFinish = true;
-    const _range = this.range;
-    this.colNum = colNum;
-    // 更新缓存buffer
-    this.param.buffer = Math.max(Math.round(this.param.keeps / (colNum * 3)), 1);
-    // 设置平均值
-    const arr = this.sizes.slice(_range.start, _range.end+1).filter((_,idx) => !((idx+1)%colNum));
-    const totalHeight = arr.reduce((acc, val) => acc + val, 0);
-    this.firstRangeAverageSize = Math.round((totalHeight * colNum) / (_range.end - _range.start + 1));
-    this.fillSizeByEstiSize();
-    // 更新pading
-    this.handleDataSourcesChange();
-    return this.firstRangeAverageSize;
-  }
-
-  fillSizeByEstiSize() {
-    this.sizes.forEach((v, ind) => {
-      if ((ind + 1) % this.colNum === 0 && v === 0) {
-        this.sizes[ind] = this.getEstimateSize();
-      }
-    });
-  }
-
   // in some special situation (e.g. length change) we need to update in a row
   // try goiong to render next range by a leading buffer according to current direction
   handleDataSourcesChange() {
     let { start } = this.range;
 
-    if (this.isFront()) {
+    if (this.direction === DIRECTION_TYPE.FRONT) {
       start -= LEADING_BUFFER;
-    } else if (this.isBehind()) {
+    } else if (this.direction === DIRECTION_TYPE.BEHIND) {
       start += LEADING_BUFFER;
     }
 
@@ -172,12 +96,7 @@ export default class Virtual {
       this.handleBehind();
     }
   }
-
-  // ----------- public method end -----------
-  getItemsRendFinish() {
-    return this.isRendFinish;
-  }
-
+  // 向上滚动
   handleFront() {
     if (this.range.start === 0) {
       return;
@@ -191,10 +110,9 @@ export default class Virtual {
     console.debug({ overs, start });
     this.checkRange(start, this.getEndByStart(start));
   }
-
   // 向下滚动
   handleBehind() {
-    if (this.range.end === this.param.uniqueIds.length - 1) {
+    if (this.range.end === this.getTotalNum() - 1) {
       return;
     }
     // start 滚动over的行数
@@ -206,10 +124,11 @@ export default class Virtual {
     console.debug({ overs });
     this.checkRange(overs * this.colNum, this.getEndByStart(overs * this.colNum));
   }
-
-  // return the pass overs according to current scroll offset
-  // 参数: direction
-  // 滚动了多少行
+  /**
+   * 功能: 向下滚动了多少行, 更新this.rowOver
+   * 参数: direction
+   * @returns 滚动的行数
+   */
   getScrollOvers() {
     // offset: scrollTop
     const offset = this.offset - this.param.slotHeaderSize;
@@ -231,7 +150,7 @@ export default class Virtual {
     let low = 0;
     let middle = 0;
     let middleOffset = 0;
-    let high = this.param.uniqueIds.length;
+    let high = this.getTotalNum();
     const _range = this.range;
     if (offset > this.getIndexOffset(_range.start)) {
       low = _range.start;
@@ -256,25 +175,9 @@ export default class Virtual {
     return this.rowOver;
   }
 
-  getIndexOffset(givenIndex) {
-    if (!givenIndex) {
-      return 0;
-    }
-    // // remember last calculate index
-    this.lastCalcIndex = Math.max(this.lastCalcIndex, givenIndex - 1);
-    this.lastCalcIndex = Math.min(this.lastCalcIndex, this.param.uniqueIds.length - 1);
-    const arr = this.sizes.slice(0, givenIndex).filter((_,idx) => !((idx+1)%this.colNum));
-    return arr.reduce((acc, cur) => acc + cur, 0);
-  }
-
-  // is fixed size type
-  isFixedType() {
-    return this.calcType === CALC_TYPE.FIXED;
-  }
-
   checkRange(start, end) {
     const _keeps = this.param.keeps;
-    const total = this.param.uniqueIds.length;
+    const total = this.getTotalNum();
     end = Math.min(end, total);
     if (total === 0) {
       start = 0;
@@ -291,7 +194,10 @@ export default class Virtual {
     }
   }
 
-  // setting to a new range and rerender
+  /**
+   * 更新range并调用回调触发re-render
+   * 计算padFront、padBehind
+   */
   updateRange(start, end) {
     this.range.start = start;
     this.range.end = end;
@@ -300,13 +206,8 @@ export default class Virtual {
     this.callUpdate(this.getRange());
   }
 
-  // return end base on start
-  getEndByStart(start) {
-    const theoryEnd = start + this.param.keeps - 1;
-    return Math.min(theoryEnd, this.param.uniqueIds.length - 1);
-  }
-
   // return total front offset
+  // BUG 整数
   getPadFront() {
     if (this.isFixedType()) {
       return this.fixedSizeValue * (this.range.start / this.colNum);
@@ -317,7 +218,7 @@ export default class Virtual {
   // return total behind offset
   getPadBehind() {
     const { end } = this.range;
-    const lastIndex = this.param.uniqueIds.length - 1;
+    const lastIndex = this.getTotalNum() - 1;
     if (lastIndex + 1 === end) {
       return 0;
     }
@@ -332,6 +233,61 @@ export default class Virtual {
     // if not, use a estimated value
     return (lastIndex - end) * this.getEstimateSize();
   }
+  
+  // ----------- 工具函数 -----------
+  // 第一次 range item mounted
+  rendFinish(colNum) {
+    this.isRendFinish = true;
+    const _range = this.range;
+    this.colNum = colNum;
+    // 更新缓存buffer
+    this.param.buffer = Math.max(Math.round(this.param.keeps / (colNum * 3)), 1);
+    // 设置平均值
+    const arr = this.sizes.slice(_range.start, _range.end+1).filter((_,idx) => !((idx+1)%colNum));
+    const totalHeight = arr.reduce((acc, val) => acc + val, 0);
+    this.firstRangeAverageSize = Math.round((totalHeight * colNum) / (_range.end - _range.start + 1));
+    this.fillSizeByEstiSize();
+    // 更新pading
+    this.handleDataSourcesChange();
+    return this.firstRangeAverageSize;
+  }
+
+  getIndexOffset(givenIndex) {
+    if (!givenIndex) {
+      return 0;
+    }
+    // // remember last calculate index
+    this.lastCalcIndex = Math.max(this.lastCalcIndex, givenIndex - 1);
+    this.lastCalcIndex = Math.min(this.lastCalcIndex, this.getTotalNum() - 1);
+    const arr = this.sizes.slice(0, givenIndex).filter((_,idx) => !((idx+1)%this.colNum));
+    return arr.reduce((acc, cur) => acc + cur, 0);
+  }
+  // return end base on start
+  getEndByStart(start) {
+    const theoryEnd = start + this.param.keeps - 1;
+    return Math.min(theoryEnd, this.getTotalNum() - 1);
+  }
+  // return current render range
+  getRange() {
+    const range = Object.create(null);
+    range.start = this.range.start;
+    range.end = this.range.end;
+    range.padFront = this.range.padFront;
+    range.padBehind = this.range.padBehind;
+    return range;
+  }
+  // return start index offset
+  getOffset(start) {
+    return (start < 1 ? 0 : this.getIndexOffset(start)) + this.param.slotHeaderSize;
+  }
+
+  fillSizeByEstiSize() {
+    this.sizes.forEach((v, ind) => {
+      if ((ind + 1) % this.colNum === 0 && v === 0) {
+        this.sizes[ind] = this.getEstimateSize();
+      }
+    });
+  }
 
   // get the item estimate size
   getEstimateSize() {
@@ -339,5 +295,45 @@ export default class Virtual {
       return this.fixedSizeValue;
     }
     return this.param.estimateSize ? this.param.estimateSize : this.firstRangeAverageSize;
+  }
+
+  getItemsRendFinish() {
+    return this.isRendFinish;
+  }
+
+  // is fixed size type
+  isFixedType() {
+    return this.calcType === CALC_TYPE.FIXED;
+  }
+
+  updateParam(key, value) {
+    if (this.param && key in this.param) {
+      this.param[key] = value;
+      if (key === 'uniqueIds') {
+        const preNum = this.sizes.length;
+        if (value.length > preNum) {
+          this.sizes = this.sizes.concat(Array(value.length - preNum).fill(0));
+          this.fillSizeByEstiSize();
+        }
+      } else if (key === 'keeps') {
+        this.checkRange(this.range.start, this.range.end);
+      }
+    }
+  }
+
+  // save each size map by index
+  saveSize(idx, size) {
+    this.sizes[idx] = size;
+    if (this.calcType === CALC_TYPE.INIT) {
+      this.fixedSizeValue = size;
+      this.calcType = CALC_TYPE.FIXED;
+    } else if (this.calcType === CALC_TYPE.FIXED && this.fixedSizeValue !== size) {
+      this.calcType = CALC_TYPE.DYNAMIC;
+      this.fixedSizeValue = 0;
+    }
+  }
+  // 总items数量
+  getTotalNum() {
+    return this.param.uniqueIds.length;
   }
 }
