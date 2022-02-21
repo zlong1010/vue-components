@@ -21,9 +21,8 @@ const Toast = (options = {}) => {
   const parent = document.body;
   if (!instance) {
     instance = new ToastComponent({
-      el: document.createElement('div'),
       data: options,
-    });
+    }).$mount();
     parent.appendChild(instance.$el);
   }
   Object.keys(options).forEach(key => {

@@ -23,6 +23,9 @@ export default {
   },
   computed: {
     href({ to }) {
+      if (typeof to === 'string' && /:?\/{2}\w+/.test(to)) {
+        return to;
+      }
       return this.$router.resolve(to).href;
     },
   },
@@ -63,7 +66,11 @@ export default {
       if (newHref === window.location.href) {
         return;
       }
-
+      // 不同源
+      if (new URL(newHref).origin !== new URL(window.location.href).origin) {
+        window.open(newHref, '_self');
+        return;
+      }
       if (args.replace) {
         this.$router.replace(routeConfig).catch(() => {});
       } else {

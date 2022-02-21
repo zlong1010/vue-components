@@ -4,22 +4,50 @@ import Home from '../views';
 
 Vue.use(VueRouter);
 
+const requireRoutes = require.context('/components', true, /index\.vue$/);
+const routeMap = [];
+requireRoutes.keys().map(fileName => {
+  // ./input/examples/index.vue
+  if (/examples\/index\.vue$/.test(fileName)) {
+    fileName = fileName.replace(/^\.\//, '');
+    const name = fileName.split('/')[0];
+    routeMap.push({
+      name,
+      path: `/${name}`,
+      component: () => import(`@cmp/${name}/examples`),
+    });
+    // console.debug({ fileName });
+  }
+});
+
+console.log('routeMap\n', routeMap);
+
 const config = [
   {
     path: '/',
     name: 'home',
     component: Home,
   },
+  ...routeMap,
   {
-    path: '/input',
-    name: 'input',
-    component: () => import('@cmp/input/examples'),
+    path: '*',
+    redirect: '/',
   },
-  {
-    path: '/virtual-list',
-    name: 'virtual-list',
-    component: () => import('@cmp/virtual-list/examples'),
-  },
+  // {
+  //   path: '/input',
+  //   name: 'input',
+  //   component: () => import('@cmp/input/examples'),
+  // },
+  // {
+  //   path: '/virtual-list',
+  //   name: 'virtual-list',
+  //   component: () => import('@cmp/virtual-list/examples'),
+  // },
+  // {
+  //   path: '/link-btn',
+  //   name: '链接按钮',
+  //   component: () => import('@cmp/link-btn/examples'),
+  // },
 ];
 
 // just for development, if you want to run this project in your local
