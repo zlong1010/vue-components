@@ -1,7 +1,9 @@
 'use strict';
 const path = require('path');
-function resolve(dir) {
-  return path.join(__dirname, dir);
+
+// 解析文件绝对路径
+function resolveDir(dir) {
+  return path.resolve(__dirname, dir);
 }
 
 const nodeEnv = process.env.NODE_ENV;
@@ -12,12 +14,12 @@ console.log(`当前环境: ${nodeEnv}`);
 console.log(`当前项目: ${projectName}`);
 
 module.exports = {
-  pages: {
-    index: {
-      entry: `src/project/${projectName}/main.js`, // 项目入口
-      template: `src/project/${projectName}/public/index.html`, // 项目HTML模板
-    },
-  },
+  // pages: {
+  //   index: {
+  //     entry: `src/project/${projectName}/main.js`, // 项目入口
+  //     template: `src/project/${projectName}/public/index.html`, // 项目HTML模板
+  //   },
+  // },
   publicPath: '/',
   outputDir: `src/project/${projectName}/dist`,
   assetsDir: 'assets',
@@ -40,8 +42,8 @@ module.exports = {
   configureWebpack: {
     resolve: {
       alias: {
-        '@': resolve(`src/project/${projectName}`), // 当前项目别名
-        '#': resolve('src'), // 公共资源别名
+        '@': resolveDir(`src/project/${projectName}`), // 当前项目别名
+        '#': resolveDir('src'), // 公共资源别名
       },
     },
     output: {
@@ -52,7 +54,7 @@ module.exports = {
   pluginOptions: {
     'style-resources-loader': {
       preProcessor: 'less',
-      patterns: [path.resolve(__dirname, './src/styles/index.less')],
+      patterns: [resolveDir('./src/styles/index.less')],
     },
   },
   chainWebpack: config => {
