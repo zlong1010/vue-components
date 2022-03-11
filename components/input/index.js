@@ -1,7 +1,7 @@
-import InputV2 from './src/input.vue';
+import Input from './src/input.vue';
 
-InputV2.install = function (Vue) {
-  Vue.component(InputV2.name, InputV2);
+Input.install = function(Vue) {
+  Vue.component(Input.name, Input);
 };
 
-export default InputV2;
+export default Input;

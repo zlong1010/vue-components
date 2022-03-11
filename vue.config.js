@@ -28,6 +28,8 @@ module.exports = {
       library: `${packageName}-[name]`,
       libraryTarget: 'umd',
       jsonpFunction: `webpackJsonp_${packageName}`,
+      filename: 'js/[name]-[hash:6].js',
+      chunkFilename: 'js/[name]-[hash:6].js',
     },
   },
 };

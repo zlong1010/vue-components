@@ -28,26 +28,26 @@ const config = [
     name: 'home',
     component: Home,
   },
-  ...routeMap,
+  // ...routeMap,
   {
     path: '*',
     redirect: '/',
   },
-  // {
-  //   path: '/input',
-  //   name: 'input',
-  //   component: () => import('@cmp/input/examples'),
-  // },
-  // {
-  //   path: '/virtual-list',
-  //   name: 'virtual-list',
-  //   component: () => import('@cmp/virtual-list/examples'),
-  // },
-  // {
-  //   path: '/link-btn',
-  //   name: '链接按钮',
-  //   component: () => import('@cmp/link-btn/examples'),
-  // },
+  {
+    path: '/input',
+    name: 'input',
+    component: () => import(/* webpackChunkName: 'input' */'@cmp/input/examples'),
+  },
+  {
+    path: '/virtual-list',
+    name: 'virtual-list',
+    component: () => import(/* webpackChunkName: 'virtual-list' */ '@cmp/virtual-list/examples'),
+  },
+  {
+    path: '/link-btn',
+    name: '链接按钮',
+    component: () => import(/* webpackChunkName: 'link-btn' */'@cmp/link-btn/examples'),
+  },
 ];
 
 // just for development, if you want to run this project in your local
