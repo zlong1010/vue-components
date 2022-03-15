@@ -10,9 +10,9 @@ function resolveDir(dir) {
 }
 
 module.exports = {
-  productionSourceMap: false,
-  publicPath: '/',
+  publicPath: './',
   outputDir: resolveDir('./docs'),
+  productionSourceMap: false,
   configureWebpack: {
     resolve: {
       alias: {
