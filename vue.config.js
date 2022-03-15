@@ -1,15 +1,17 @@
 const path = require('path');
 const { name: packageName } = require('./package.json');
 
+const env = process.env.NODE_ENV;
+console.log(`\n${env} 环境`);
+
 // 解析文件绝对路径
 function resolveDir(dir) {
   return path.resolve(__dirname, dir);
 }
 
-console.log(`\n${process.env.NODE_ENV} 环境\n`);
 module.exports = {
   productionSourceMap: false,
-  publicPath: './',
+  publicPath: '/',
   outputDir: resolveDir('./docs'),
   configureWebpack: {
     resolve: {
