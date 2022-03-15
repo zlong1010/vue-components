@@ -36,17 +36,17 @@ const config = [
   {
     path: '/input',
     name: 'input',
-    component: () => import(/* webpackChunkName: 'input' */'@cmp/input/examples'),
+    component: () => import(/* webpackChunkName: 'input' */ '../../components/input/examples'),
   },
   {
     path: '/virtual-list',
     name: 'virtual-list',
-    component: () => import(/* webpackChunkName: 'virtual-list' */ '@cmp/virtual-list/examples'),
+    component: () => import(/* webpackChunkName: 'virtual-list' */ '../../components/virtual-list/examples'),
   },
   {
     path: '/link-btn',
     name: '链接按钮',
-    component: () => import(/* webpackChunkName: 'link-btn' */'@cmp/link-btn/examples'),
+    component: () => import(/* webpackChunkName: 'link-btn' */ '../../components/link-btn/examples'),
   },
 ];
 
