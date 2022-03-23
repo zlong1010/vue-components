@@ -3,7 +3,7 @@
     <Header />
     <div class="page-wrap">
       <div id="nav">
-        <router-link to="/input">输入框</router-link>
+        <router-link to="/input" v-copy>输入框</router-link>
         <router-link to="/virtual-list">虚拟列表</router-link>
         <router-link to="/link-btn">链接按钮</router-link>
         <router-link to="/toast">Toast</router-link>
