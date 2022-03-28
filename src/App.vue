@@ -2,7 +2,7 @@
   <div id="app">
     <Header />
     <div class="page-wrap">
-      <div id="nav">
+      <div class="sidebar-wrap">
         <router-link v-for="item in routeList" :to="`/${item}`" :key="item">{{item}}</router-link>
       </div>
       <router-view class="page-content" />
@@ -35,23 +35,24 @@ export default {
 </script>
 
 <style lang="less" scoped>
-#app {
-  /* background-color: #f5f5d5; */
-}
 .page-wrap {
   padding-top: 40px;
   position: relative;
 }
-#nav {
+.sidebar-wrap {
   width: 200px;
   position: fixed;
   top: 40px;
   bottom: 0;
   overflow: auto;
   border-right: 1px solid #d3d3d3;
-  background-color: aqua;
+  font-weight: bold;
   > * {
     display: block;
+  }
+  .router-link-active {
+    color: #3eaf7c;
+    font-size: 20px;
   }
 }
 .page-content {

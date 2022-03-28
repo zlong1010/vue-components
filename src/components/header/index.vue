@@ -1,5 +1,5 @@
 <template>
-  <header class="header">
+  <header class="c-header">
     <router-link to="/">主页</router-link>
     <github-corner />
     <!-- <a href="https://github.com/zlong1010/vue-components" target="_blank" rel="noopener noreferrer" class="repo-link">
@@ -32,7 +32,7 @@ export default {};
 </script>
 
 <style lang="less" scoped>
-.header {
+.c-header {
   position: fixed;
   width: 100%;
   max-width: 1440px;
@@ -42,7 +42,7 @@ export default {};
   align-items: center;
   border-bottom: 1px solid #d3d3d3;
   z-index: 1000;
-  background-color: antiquewhite;
+  font-weight: bold;
   > * {
     margin-right: 8px;
     cursor: pointer;
