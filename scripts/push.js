@@ -10,5 +10,5 @@ if (!commitMsg) {
 
 const childProcs = exec(`git add . && git commit -m "${commitMsg}" && git push origin master`);
 childProcs.stdout.on('data', data => log(`${data}`));
-childProcs.stderr.on('data', data => log(`${red}${data}`));
+childProcs.stderr.on('data', data => log(`${data}`));
 childProcs.on('exit', code => log(`$ End: ${code ? '失败' : '成功'}`));
