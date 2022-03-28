@@ -3,10 +3,7 @@
     <Header />
     <div class="page-wrap">
       <div id="nav">
-        <router-link to="/input" v-copy>输入框</router-link>
-        <router-link to="/virtual-list">虚拟列表</router-link>
-        <router-link to="/link-btn">链接按钮</router-link>
-        <router-link to="/toast">Toast</router-link>
+        <router-link v-for="item in routeList" :to="`/${item}`" :key="item">{{item}}</router-link>
       </div>
       <router-view class="page-content" />
     </div>
@@ -15,9 +12,25 @@
 
 <script>
 import Header from './components/header';
+
+const requireRoutes = require.context('/components', true, /index\.vue$/);
+const routeList = [];
+requireRoutes.keys().map(fileName => {
+  if (/examples\/index\.vue$/.test(fileName)) {
+    fileName = fileName.replace(/^\.\//, '');
+    const name = fileName.split('/')[0];
+    routeList.push(name);
+  }
+});
+
 export default {
   name: 'App',
   components: { Header },
+  data() {
+    return {
+      routeList,
+    };
+  },
 };
 </script>
 
