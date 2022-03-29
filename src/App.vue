@@ -41,6 +41,7 @@ export default {
 }
 .sidebar-wrap {
   width: 200px;
+  padding: 0 16px;
   position: fixed;
   top: 40px;
   bottom: 0;

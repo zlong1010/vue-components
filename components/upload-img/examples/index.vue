@@ -34,7 +34,7 @@ export default {
   methods: {
     onUpdate(_, file) {
       console.debug('onUpdate file: ', file);
-      console.debug('abs url: ', absoluteURL(document, file.name));
+      console.debug('abs url: ', absoluteURL(document, file?.name));
     },
   },
 };

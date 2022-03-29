@@ -32,11 +32,13 @@
         <p :class="`${clsPrefix}-desc`">{{ desc }}</p>
       </div>
     </div>
-    <p :class="`${clsPrefix}-error`">{{ errMsg }}</p>
+    <div v-if="errMsg" :class="`${clsPrefix}-error`"><IconErrDiamond />{{errMsg}}</div>
   </div>
 </template>
 
 <script>
+import { IconErrDiamond } from '../../svg-icon';
+
 const defaultAttr = {
   type: 'text',
 };
@@ -44,6 +46,7 @@ const defaultAttr = {
 export default {
   name: 'Input',
   inheritAttrs: false,
+  components: { IconErrDiamond },
   props: {
     value: [String, Number],
     search: {
@@ -88,7 +91,8 @@ export default {
   },
   computed: {
     attrs() {
-      return { ...this.$attrs, ...defaultAttr };
+      // 解决number bug
+      return { ...defaultAttr, ...this.$attrs, type: 'text' };
     },
     listeners() {
       const propsListeners = this.$listeners;
@@ -277,6 +281,7 @@ function copyString(str) {
       overflow: auto; // 隐藏ie滚动条
       transition: border 0.15s ease-out;
       outline: none;
+      resize: none;
       .min-placeholder {
         font-size: 14px;
         color: #c0c4cc;
@@ -335,21 +340,8 @@ function copyString(str) {
     line-height: 18px;
     font-weight: 400;
     word-break: break-all;
-    &:empty {
-      display: none;
-    }
-    &::before {
-      width: 16px;
-      height: 16px;
-      min-width: 16px;
-      margin: 2px 8px 0 0;
-      align-self: flex-start;
-      content: '';
-      display: inline-block;
-      background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgBAMAAACBVGfHAAAAMFBMVEUAAAD2bGz2bGz2bGz2bGz2bW31bW32bGz2b2/3b2//gID2bW31bGz////++Pj6uLgOA9FkAAAADHRSTlMA5vPZv4yFdlM8CKjvXHhZAAAAq0lEQVQoz2OAgKnOSiaRDHDAVXgGBMQXwAQaz0CABJTPdgYGEiACe+ACp2EKUJX0IAmcAFkhA2Kdfw8WOAi0iB3MOncPoqSAgYERzDh7FyIgwMAwB0XgJANDDIrAUQYGHxSBIwwMNigChxkYdFAEDmEKYGrxQXHYEZC1EKfDrZ0D9RfcYYxQJtzp7ChaCkDehxgK9z5DD5KKExhBiBnImNGAGVGYUYmIbOIAALoXE/rM7duLAAAAAElFTkSuQmCC);
-      background-size: contain;
-      background-position: center;
-      background-repeat: no-repeat;
+    svg {
+      margin-right: 4px;
     }
   }
 }

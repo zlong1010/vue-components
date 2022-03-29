@@ -2,21 +2,23 @@
   <div class="c-upload-img">
     <div v-if="value" class="preview" :style="sizeSty">
       <img :src="value" alt="" />
-      <i class="act-icon icon_delete_red" @click="onDelete" />
+      <IconDelete class="act-icon icon_delete_red" @click.native="onDelete" />
     </div>
     <div v-else class="empty" :style="sizeSty" @click="onEdit">
       <span class="image-desc">{{ desc }}</span>
       <slot name="empty"></slot>
       <span class="act-icon">
-        <!-- <Icon name="edit" size="12"></Icon> -->
+        <IconEdit />
       </span>
     </div>
-    <div class="g-error-msg">{{ error }}</div>
+    <div v-if="error" class="error-wrap"><IconErrDiamond />{{ error }}</div>
     <input id="vdqh4nafee" type="file" accept="image/png, image/jpeg, image/jpg" @change="upload" />
   </div>
 </template>
 
 <script>
+import { IconEdit, IconDelete, IconErrDiamond } from '../../svg-icon';
+
 const loadImg = base64 => {
   return new Promise((resolve, reject) => {
     const img = new Image();
@@ -28,6 +30,7 @@ const loadImg = base64 => {
 
 export default {
   name: 'UploadImg',
+  components: { IconEdit, IconDelete, IconErrDiamond },
   props: {
     value: String,
     maxSize: {
@@ -80,6 +83,7 @@ export default {
       ele.click();
     },
     onDelete() {
+      console.debug('delete');
       // this.$el.querySelector('#vdqh4nafee').value = '';
       this.$emit('input', '');
     },
@@ -139,30 +143,18 @@ export default {
       transform: translate(-50%, -50%);
     }
   }
-  .g-error-msg {
-  max-width: 358px;
-  display: flex;
-  margin-top: 8px;
-  align-items: center;
-  font-size: 12px;
-  color: #f56c6c;
-  line-height: 18px;
-  font-weight: 400;
-  &:empty {
-    display: none;
+  .error-wrap {
+    max-width: 358px;
+    display: flex;
+    margin-top: 8px;
+    align-items: center;
+    font-size: 12px;
+    color: #f56c6c;
+    line-height: 18px;
+    font-weight: 400;
+    svg {
+      margin-right: 4px;
+    }
   }
-  &::before {
-    content: '';
-    width: 16px;
-    height: 16px;
-    flex: 0 0 16px;
-    display: inline-block;
-    margin-right: 8px;
-    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgBAMAAACBVGfHAAAAMFBMVEUAAAD2bGz2bGz2bGz2bGz2bW31bW32bGz2b2/3b2//gID2bW31bGz////++Pj6uLgOA9FkAAAADHRSTlMA5vPZv4yFdlM8CKjvXHhZAAAAq0lEQVQoz2OAgKnOSiaRDHDAVXgGBMQXwAQaz0CABJTPdgYGEiACe+ACp2EKUJX0IAmcAFkhA2Kdfw8WOAi0iB3MOncPoqSAgYERzDh7FyIgwMAwB0XgJANDDIrAUQYGHxSBIwwMNigChxkYdFAEDmEKYGrxQXHYEZC1EKfDrZ0D9RfcYYxQJtzp7ChaCkDehxgK9z5DD5KKExhBiBnImNGAGVGYUYmIbOIAALoXE/rM7duLAAAAAElFTkSuQmCC);
-    background-size: contain;
-    background-position: center;
-    background-repeat: no-repeat;
-  }
-}
 }
 </style>
