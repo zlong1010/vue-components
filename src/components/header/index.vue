@@ -44,6 +44,7 @@ export default {};
   border-bottom: 1px solid #d3d3d3;
   z-index: 1000;
   font-weight: bold;
+  background: #fff;
   > * {
     margin-right: 8px;
     cursor: pointer;
