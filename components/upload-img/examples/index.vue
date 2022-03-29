@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import UploadImg from '../src/index.vue';
+import UploadImg from '../src/upload-img.vue';
 
 function absoluteURL(doc, relativeURL) {
   // In the case of data: URL-based pages, relativeURL === absoluteURL.

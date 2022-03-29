@@ -1,10 +1,10 @@
 <template>
   <div class="c-upload-img">
-    <div class="preview" :style="sizeSty" v-if="value">
+    <div v-if="value" class="preview" :style="sizeSty">
       <img :src="value" alt="" />
       <i class="act-icon icon_delete_red" @click="onDelete" />
     </div>
-    <div class="empty" :style="sizeSty" @click="onEdit" v-else>
+    <div v-else class="empty" :style="sizeSty" @click="onEdit">
       <span class="image-desc">{{ desc }}</span>
       <slot name="empty"></slot>
       <span class="act-icon">
@@ -88,7 +88,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.c-input-image {
+.c-upload-img {
   input[type='file'] {
     display: none;
   }
@@ -139,5 +139,30 @@ export default {
       transform: translate(-50%, -50%);
     }
   }
+  .g-error-msg {
+  max-width: 358px;
+  display: flex;
+  margin-top: 8px;
+  align-items: center;
+  font-size: 12px;
+  color: #f56c6c;
+  line-height: 18px;
+  font-weight: 400;
+  &:empty {
+    display: none;
+  }
+  &::before {
+    content: '';
+    width: 16px;
+    height: 16px;
+    flex: 0 0 16px;
+    display: inline-block;
+    margin-right: 8px;
+    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgBAMAAACBVGfHAAAAMFBMVEUAAAD2bGz2bGz2bGz2bGz2bW31bW32bGz2b2/3b2//gID2bW31bGz////++Pj6uLgOA9FkAAAADHRSTlMA5vPZv4yFdlM8CKjvXHhZAAAAq0lEQVQoz2OAgKnOSiaRDHDAVXgGBMQXwAQaz0CABJTPdgYGEiACe+ACp2EKUJX0IAmcAFkhA2Kdfw8WOAi0iB3MOncPoqSAgYERzDh7FyIgwMAwB0XgJANDDIrAUQYGHxSBIwwMNigChxkYdFAEDmEKYGrxQXHYEZC1EKfDrZ0D9RfcYYxQJtzp7ChaCkDehxgK9z5DD5KKExhBiBnImNGAGVGYUYmIbOIAALoXE/rM7duLAAAAAElFTkSuQmCC);
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+}
 }
 </style>
