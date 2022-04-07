@@ -12,5 +12,15 @@ import Input from '../src/input.vue';
 
 export default {
   components: { Input },
+  data() {
+    return {
+      me: 'hhhhhhh',
+      you: this.me,
+    };
+  },
+  created() {
+    console.debug('\nme: ', this.me);
+    console.debug('\nyou: ', this.you);
+  },
 };
 </script>
